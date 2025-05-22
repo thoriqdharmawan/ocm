@@ -7,3 +7,7 @@
   width: 100%;
   font-family: 'outfit', sans-serif;
 }
+
+.no-caret::after {
+  display: none !important;
+}
