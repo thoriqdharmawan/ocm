@@ -5,10 +5,6 @@ import Home from "./pages/Home";
 import Customers from "./pages/Customers";
 import Orders from "./pages/Orders";
 
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import "./App.css";
-
 function App() {
   return (
     <Router>
