@@ -1,4 +1,5 @@
 import Dropdown from "../components/Dropdown";
+import ThreeDotsIcon from "../components/icons/ThreeDotsIcon";
 import Table, { Column } from "../components/Table";
 import { customersData } from "../datas/customers";
 import { Customer } from "../models/customers";
@@ -35,7 +36,7 @@ const Customers = () => {
     {
       id: "action",
       label: "Aksi",
-      cell: () => <Dropdown items={dropdownItems} label="Aksi" />,
+      cell: () => <Dropdown items={dropdownItems} label={<ThreeDotsIcon />} />,
       className: "text-center",
     },
   ];

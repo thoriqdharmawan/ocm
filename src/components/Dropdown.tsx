@@ -14,9 +14,9 @@ const Dropdown = (props: DropdownProps) => {
   const { items, label } = props;
 
   return (
-    <div className="dropdown">
+    <div className="dropdown d-flex justify-content-center align-items-center">
       <button
-        className="btn dropdown-toggle no-caret"
+        className="btn dropdown-toggle no-caret d-flex align-items-center"
         type="button"
         data-bs-toggle="dropdown"
         aria-expanded="false"
