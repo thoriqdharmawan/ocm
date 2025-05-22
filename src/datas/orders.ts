@@ -3,7 +3,7 @@ import { OrdersType } from "../models/orders";
 export const ordersData: OrdersType[] = [
   {
     id: 1,
-    orderNumber: "INV-20240522-0001",
+    orderNumber: "0001",
     orderDate: "2024-05-20",
     status: "processing",
     totalAmount: 250000,
@@ -15,7 +15,7 @@ export const ordersData: OrdersType[] = [
   },
   {
     id: 2,
-    orderNumber: "INV-20240522-0002",
+    orderNumber: "0002",
     orderDate: "2024-05-21",
     status: "shipped",
     totalAmount: 175000,
@@ -27,7 +27,7 @@ export const ordersData: OrdersType[] = [
   },
   {
     id: 3,
-    orderNumber: "INV-20240522-0003",
+    orderNumber: "0003",
     orderDate: "2024-05-19",
     status: "delivered",
     totalAmount: 320000,
@@ -39,7 +39,7 @@ export const ordersData: OrdersType[] = [
   },
   {
     id: 4,
-    orderNumber: "INV-20240522-0004",
+    orderNumber: "0004",
     orderDate: "2024-05-18",
     status: "cancelled",
     totalAmount: 90000,
@@ -51,7 +51,7 @@ export const ordersData: OrdersType[] = [
   },
   {
     id: 5,
-    orderNumber: "INV-20240522-0005",
+    orderNumber: "0005",
     orderDate: "2024-05-22",
     status: "pending",
     totalAmount: 450000,
