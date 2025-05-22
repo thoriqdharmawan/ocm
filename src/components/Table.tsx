@@ -1,9 +1,11 @@
 import { ReactNode } from "react";
+import { cn } from "../utils/classname";
 
 export interface Column<T> {
   id: string;
   label: string;
   cell: ({ data }: { data: T }) => ReactNode | string | number;
+  className?: string;
 }
 
 interface TableProps<T> {
@@ -19,7 +21,7 @@ const Table = <T,>({ columns, data, loading }: TableProps<T>) => {
         <thead>
           <tr>
             {columns?.map((column) => (
-              <th key={column.id} className="py-3 text-center" scope="col">
+              <th key={column.id} className={cn("py-3 text-center", column.className)} scope="col">
                 {column.label}
               </th>
             ))}
