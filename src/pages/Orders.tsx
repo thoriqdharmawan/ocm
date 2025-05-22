@@ -25,6 +25,7 @@ const columns: Column<OrdersType>[] = [
     id: "totalAmount",
     label: "Total Pembayaran",
     cell: ({ data }) => `Rp ${data.totalAmount.toLocaleString()}`,
+    className: "text-end",
   },
   {
     id: "paymentMethod",
