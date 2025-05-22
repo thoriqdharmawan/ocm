@@ -7,12 +7,12 @@ const columns: Column<OrdersType>[] = [
     id: "orderNumber",
     label: "Nomor Pesanan",
     cell: ({ data }) => data.orderNumber,
+    className: "text-center",
   },
   {
     id: "orderDate",
     label: "Tanggal Pesanan",
     cell: ({ data }) => data.orderDate,
-    className: "text-center",
   },
   {
     id: "status",
@@ -43,6 +43,7 @@ const columns: Column<OrdersType>[] = [
     id: "courier",
     label: "Kurir",
     cell: ({ data }) => data.courier,
+    className: "text-center",
   },
   {
     id: "trackingNumber",

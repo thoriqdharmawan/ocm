@@ -33,7 +33,7 @@ const Table = <T,>({ columns, data, loading }: TableProps<T>) => {
               <tr key={key}>
                 {columns.map((col, idx) => {
                   return (
-                    <td key={`${key}-${idx}`}>
+                    <td key={`${key}-${idx}`} className={col.className}>
                       {col.cell({ data: dataItem })}
                     </td>
                   );
