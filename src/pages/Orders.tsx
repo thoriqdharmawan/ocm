@@ -12,6 +12,7 @@ const columns: Column<OrdersType>[] = [
     id: "orderDate",
     label: "Tanggal Pesanan",
     cell: ({ data }) => data.orderDate,
+    className: "text-center",
   },
   {
     id: "status",
