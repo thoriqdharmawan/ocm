@@ -1,6 +1,7 @@
 import Table, { Column } from "../components/Table";
 import { ordersData } from "../datas/orders";
 import { OrdersType } from "../models/orders";
+import { formatDate } from "../utils/global";
 
 const columns: Column<OrdersType>[] = [
   {
@@ -12,7 +13,8 @@ const columns: Column<OrdersType>[] = [
   {
     id: "orderDate",
     label: "Tanggal Pesanan",
-    cell: ({ data }) => data.orderDate,
+    cell: ({ data }) => formatDate(data.orderDate),
+    style: { minWidth: "150px" },
   },
   {
     id: "status",
