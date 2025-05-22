@@ -19,7 +19,7 @@ const Table = <T,>({ columns, data, loading }: TableProps<T>) => {
         <thead>
           <tr>
             {columns?.map((column) => (
-              <th key={column.id} className="py-3" scope="col">
+              <th key={column.id} className="py-3 text-center" scope="col">
                 {column.label}
               </th>
             ))}
