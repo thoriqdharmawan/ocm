@@ -5,6 +5,7 @@ import WhartsAppIcon from "../../icons/WhatsAppIcon";
 import Barcode from "react-barcode";
 import { useDownloadImage } from "../../../hooks/useDownloadImage";
 import Field from "../../ui/Field";
+import DownloadIcon from "../../icons/DownloadIcon";
 
 interface ModalDetailCustomerProps {
   open: boolean;
@@ -64,10 +65,11 @@ const ModalDetailCustomer = (props: ModalDetailCustomerProps) => {
               <div className="d-flex justify-content-start">
                 <button
                   onClick={() => downloadImage(`${data?.code} - ${data?.name}`)}
-                  className="btn btn-sm btn-outline-primary"
+                  className="btn btn-sm btn-outline-primary d-flex align-items-center gap-2 px-3"
                   type="button"
                   id="button-download-customer"
                 >
+                  <DownloadIcon />
                   Download as Image
                 </button>
               </div>

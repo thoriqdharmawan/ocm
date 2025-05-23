@@ -5,6 +5,7 @@ import { formatDate } from "../../../utils/global";
 import StatusBadge from "../../ui/StatusBadge";
 import Barcode from "react-barcode";
 import { useDownloadImage } from "../../../hooks/useDownloadImage";
+import DownloadIcon from "../../icons/DownloadIcon";
 
 interface ModalDetailCustomerProps {
   open: boolean;
@@ -72,10 +73,11 @@ const ModalDetailOrder = (props: ModalDetailCustomerProps) => {
           onClick={() =>
             downloadImage(`${data?.trackingNumber} - ${data?.customerName}`)
           }
-          className="btn btn-sm btn-outline-primary"
+          className="btn btn-sm btn-outline-primary d-flex align-items-center gap-2 px-3"
           type="button"
           id="button-download-customer"
         >
+          <DownloadIcon />
           Download as Image
         </button>
       </div>
