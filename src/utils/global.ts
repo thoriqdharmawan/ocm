@@ -11,3 +11,12 @@ export function formatDate(
   const dateObj = typeof date === "string" ? new Date(date) : date;
   return new Intl.DateTimeFormat("en-US", options).format(dateObj);
 }
+
+export function getWhatsAppLink(phoneNumber: string | number | undefined): string {
+  if (!phoneNumber) {
+    return "";
+  }
+
+  const formattedNumber = `${phoneNumber}`.replace(/\D/g, "");
+  return `https://wa.me/${formattedNumber}`;
+}
