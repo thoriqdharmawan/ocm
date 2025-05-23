@@ -133,7 +133,7 @@ const Orders = () => {
       <h2 className="my-4">Orders</h2>
       <div className="d-flex justify-content-between align-items-center mb-4">
         <Input
-          placeholder="Search Orders"
+          placeholder="Search Order Number"
           wrapperClassName="w-50"
           value={search}
           onChange={(e) => handleSearch(e.target.value)}
