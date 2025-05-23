@@ -2,6 +2,7 @@ import { getWhatsAppLink } from "../../../utils/global";
 import Field from "../../ui/Field";
 import Input from "../../ui/Input";
 import Modal from "../../ui/Modal";
+import UploadImage from "../../ui/UploadImage";
 
 interface ModalDraftCustomerProps {
   open: boolean;
@@ -47,7 +48,20 @@ const ModalDraftCustomer = (props: ModalDraftCustomerProps) => {
             }
           />
         </div>
-        <div className="col"></div>
+        <div className="col">
+          <Field
+            label=""
+            value={
+              <UploadImage
+                previewSize={280}
+                // value={imageUrl}
+                onChange={(file, preview) => {
+                  console.log({ file, preview });
+                }}
+              />
+            }
+          />
+        </div>
       </div>
     </Modal>
   );
