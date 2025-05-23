@@ -23,3 +23,14 @@
 .w-fit {
   width: fit-content;
 }
+
+input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+input.form-control:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: inherit;
+}
