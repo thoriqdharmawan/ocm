@@ -3,6 +3,7 @@ import Modal from "../../ui/Modal";
 import Field from "../../ui/Field";
 import Input from "../../ui/Input";
 import { OrdersType } from "../../../models/orders";
+import { PaymentMethod, Courier } from "../../../models/orders";
 import useAddOrder from "../../../api/orders/useAddOrder";
 import useUpdateOrder from "../../../api/orders/useUpdateOrder";
 
@@ -18,10 +19,10 @@ const DEFAULT_FORM = {
   orderDate: "",
   status: "pending" as OrdersType["status"],
   totalAmount: 0,
-  paymentMethod: "",
+  paymentMethod: "Transfer Bank BCA" as PaymentMethod,
   customerName: "",
   shippingAddress: "",
-  courier: "",
+  courier: "JNE" as Courier,
   trackingNumber: "",
 };
 
@@ -90,14 +91,11 @@ const ModalDraftOrder = (props: ModalDraftOrderProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    console.log("form", validate());
-
     if (validate()) {
       if (type === "add") {
-        mutateAdd({ body: { ...form } });
+        mutateAdd({ body: { ...form, paymentMethod: form.paymentMethod as PaymentMethod, courier: form.courier as Courier } });
       } else if (type === "edit" && data) {
-        mutateUpdate({ id: data.id, body: { ...form } });
+        mutateUpdate({ id: data.id, body: { ...form, paymentMethod: form.paymentMethod as PaymentMethod, courier: form.courier as Courier } });
       }
     }
   };
@@ -172,14 +170,22 @@ const ModalDraftOrder = (props: ModalDraftOrderProps) => {
             <Field
               label="Payment Method"
               value={
-                <Input
-                  placeholder="Payment Method"
-                  error={errors.paymentMethod}
+                <select
+                  className={`form-select${
+                    errors.paymentMethod ? " is-invalid" : ""
+                  }`}
                   value={form.paymentMethod}
                   onChange={(e) =>
-                    handleChange("paymentMethod", e.target.value)
+                    handleChange("paymentMethod", e.target.value as PaymentMethod)
                   }
-                />
+                >
+                  <option value="">Select Payment Method</option>
+                  <option value="Transfer Bank BCA">Transfer Bank BCA</option>
+                  <option value="COD">COD</option>
+                  <option value="OVO">OVO</option>
+                  <option value="GoPay">GoPay</option>
+                  <option value="Transfer Bank Mandiri">Transfer Bank Mandiri</option>
+                </select>
               }
             />
             <Field
@@ -209,12 +215,18 @@ const ModalDraftOrder = (props: ModalDraftOrderProps) => {
             <Field
               label="Courier"
               value={
-                <Input
-                  placeholder="Courier"
-                  error={errors.courier}
+                <select
+                  className={`form-select${errors.courier ? " is-invalid" : ""}`}
                   value={form.courier}
-                  onChange={(e) => handleChange("courier", e.target.value)}
-                />
+                  onChange={(e) => handleChange("courier", e.target.value as Courier)}
+                >
+                  <option value="">Select Courier</option>
+                  <option value="JNE">JNE</option>
+                  <option value="SiCepat">SiCepat</option>
+                  <option value="J&T Express">J&T Express</option>
+                  <option value="Pos Indonesia">Pos Indonesia</option>
+                  <option value="AnterAja">AnterAja</option>
+                </select>
               }
             />
             <div className="d-flex justify-content-end mt-3">
