@@ -3,6 +3,7 @@ import { CustomersType } from "../models/customers";
 export const customersData: CustomersType[] = [
   {
     id: 1,
+    code: "CUST001",
     name: "Budi Santoso",
     email: "budi.santoso@email.com",
     phone: "081234567890",
@@ -10,6 +11,7 @@ export const customersData: CustomersType[] = [
   },
   {
     id: 2,
+    code: "CUST002",
     name: "Siti Aminah",
     email: "siti.aminah@email.com",
     phone: "082112223333",
@@ -17,6 +19,7 @@ export const customersData: CustomersType[] = [
   },
   {
     id: 3,
+    code: "CUST003",
     name: "Agus Pratama",
     email: "agus.pratama@email.com",
     phone: "085612345678",
@@ -24,6 +27,7 @@ export const customersData: CustomersType[] = [
   },
   {
     id: 4,
+    code: "CUST004",
     name: "Dewi Lestari",
     email: "dewi.lestari@email.com",
     phone: "081377778888",
@@ -31,6 +35,7 @@ export const customersData: CustomersType[] = [
   },
   {
     id: 5,
+    code: "CUST005",
     name: "Andi Wijaya",
     email: "andi.wijaya@email.com",
     phone: "087812345679",
