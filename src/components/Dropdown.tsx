@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 interface DropdownItem {
-  label: string;
+  label: string | ReactNode;
   action: () => void;
 }
 

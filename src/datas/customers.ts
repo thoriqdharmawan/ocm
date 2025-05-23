@@ -1,6 +1,6 @@
-import { Customer } from "../models/customers";
+import { CustomersType } from "../models/customers";
 
-export const customersData: Customer[] = [
+export const customersData: CustomersType[] = [
   {
     id: 1,
     name: "Budi Santoso",

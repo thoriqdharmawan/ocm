@@ -1,17 +1,33 @@
+import { useState } from "react";
 import Dropdown from "../components/Dropdown";
 import ThreeDotsIcon from "../components/icons/ThreeDotsIcon";
+import Modal from "../components/Modal";
 import Table, { Column } from "../components/Table";
 import { customersData } from "../datas/customers";
-import { Customer } from "../models/customers";
+import { CustomersType } from "../models/customers";
+
+const DEFAULT_MODAL = {
+  open: false,
+  data: null,
+};
 
 const Customers = () => {
+  const [modal, setModal] = useState(DEFAULT_MODAL);
+
   const dropdownItems = [
-    { label: "Detail", action: () => {} },
+    {
+      label: (
+        <div onClick={() => setModal((prev) => ({ ...prev, open: true }))}>
+          Detail
+        </div>
+      ),
+      action: () => {},
+    },
     { label: "Edit", action: () => {} },
     { label: "Hapus", action: () => {} },
   ];
 
-  const colums: Column<Customer>[] = [
+  const colums: Column<CustomersType>[] = [
     {
       id: "name",
       label: "Nama",
@@ -46,6 +62,12 @@ const Customers = () => {
       <h2 className="my-4">Customers Page</h2>
 
       <Table columns={colums} data={customersData} />
+
+      <Modal
+        open={modal.open}
+        title="Detail Customer"
+        onClose={() => setModal((prev) => ({ ...prev, open: false }))}
+      />
     </div>
   );
 };
