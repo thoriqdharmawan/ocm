@@ -41,11 +41,7 @@ const ModalDeleteOrder = (props: ModalDeleteOrderProps) => {
         </div>
 
         <div className="d-flex justify-content-end gap-2 mt-4">
-          <button
-            className="btn btn-secondary"
-            onClick={onClose}
-            disabled={loading}
-          >
+          <button className="btn" onClick={onClose} disabled={loading}>
             Cancel
           </button>
           <button
