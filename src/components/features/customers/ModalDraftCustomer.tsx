@@ -18,9 +18,7 @@ const ModalDraftCustomer = (props: ModalDraftCustomerProps) => {
         <div className="col">
           <Field
             label="Name"
-            value={
-              <Input label="Nama" placeholder="Input name" error="" />
-            }
+            value={<Input label="Nama" placeholder="Input name" error="" />}
           />
 
           <Field
@@ -32,9 +30,7 @@ const ModalDraftCustomer = (props: ModalDraftCustomerProps) => {
 
           <Field
             label="Email"
-            value={
-              <Input label="Email" placeholder="Input email" error="" />
-            }
+            value={<Input label="Email" placeholder="Input email" error="" />}
           />
           <Field
             label="Phone"
