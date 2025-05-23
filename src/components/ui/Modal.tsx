@@ -1,14 +1,16 @@
 import { ReactNode } from "react";
+import { cn } from "../../utils/classname";
 
 interface ModalProps {
   open: boolean;
   onClose: () => void;
   title: string;
   children?: ReactNode;
+  size?: "sm" | "md" | "lg" | "xl";
 }
 
 const Modal = (props: ModalProps) => {
-  const { open, onClose, title, children } = props;
+  const { open, onClose, title, children, size = "lg" } = props;
 
   const handleClose = () => {
     onClose();
@@ -18,9 +20,22 @@ const Modal = (props: ModalProps) => {
     return null;
   }
 
+  const modalSize = {
+    sm: "modal-sm",
+    md: "modal-md",
+    lg: "modal-lg",
+    xl: "modal-xl",
+  };
+
   return (
     <div className="modal fade show d-block">
-      <div className="modal-dialog modal-lg modal-dialog-centered position-relative" style={{ zIndex: 1051}}>
+      <div
+        className={cn(
+          "modal-dialog modal-dialog-centered position-relative",
+          modalSize[size]
+        )}
+        style={{ zIndex: 1051 }}
+      >
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">{title}</h5>

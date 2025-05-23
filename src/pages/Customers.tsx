@@ -10,10 +10,12 @@ import ModalDraftCustomer from "../components/features/customers/ModalDraftCusto
 import Input from "../components/ui/Input";
 import useGetListCustomer from "../api/customers/useGetListCustomer";
 import EmptyState from "../components/ui/EmptyState";
+import ModalDeleteCustomer from "../components/features/customers/ModalDeleteCustomer";
 
 interface ModalState {
   openDetail: boolean;
   openDraft: boolean;
+  openDelete: boolean;
   data: CustomersType | null;
   type: "add" | "edit" | "detail";
 }
@@ -21,6 +23,7 @@ interface ModalState {
 const DEFAULT_MODAL: ModalState = {
   openDetail: false,
   openDraft: false,
+  openDelete: false,
   data: null,
   type: "add",
 };
@@ -45,6 +48,10 @@ const Customers = () => {
       limit: LIMIT,
     },
   });
+
+  const handleDeleteCustomer = (id: number) => {
+    setDumy((prev) => prev.filter((c) => c.id !== id));
+  };
 
   const colums: Column<CustomersType>[] = [
     {
@@ -94,7 +101,15 @@ const Customers = () => {
                   type: "edit",
                 })),
             },
-            { label: "Hapus", action: () => {} },
+            {
+              label: "Delete",
+              action: () =>
+                setModal((prev) => ({
+                  ...prev,
+                  openDelete: true,
+                  data,
+                })),
+            },
           ]}
           label={<ThreeDotsIcon />}
         />
@@ -106,11 +121,12 @@ const Customers = () => {
   // Fake search handler
   const handleSearch = (value: string) => {
     setSearch(value);
-    const filtered = customersData.filter((c) =>
-      c.name.toLowerCase().includes(value.toLowerCase()) ||
-      c.email.toLowerCase().includes(value.toLowerCase()) ||
-      c.phone.toLowerCase().includes(value.toLowerCase()) ||
-      c.address.toLowerCase().includes(value.toLowerCase())
+    const filtered = customersData.filter(
+      (c) =>
+        c.name.toLowerCase().includes(value.toLowerCase()) ||
+        c.email.toLowerCase().includes(value.toLowerCase()) ||
+        c.phone.toLowerCase().includes(value.toLowerCase()) ||
+        c.address.toLowerCase().includes(value.toLowerCase())
     );
     setDumy(filtered.slice(0, LIMIT));
     setPage(1);
@@ -125,7 +141,7 @@ const Customers = () => {
           placeholder="Search Customers"
           wrapperClassName="w-50"
           value={search}
-          onChange={e => handleSearch(e.target.value)}
+          onChange={(e) => handleSearch(e.target.value)}
         />
         <button
           onClick={() =>
@@ -141,7 +157,9 @@ const Customers = () => {
       {dumy.length === 0 ? (
         <EmptyState
           title={search ? "Customer not found" : undefined}
-          description={search ? `No customers match the keyword "${search}".` : undefined}
+          description={
+            search ? `No customers match the keyword "${search}".` : undefined
+          }
         />
       ) : (
         <Table columns={colums} data={dumy} />
@@ -149,7 +167,9 @@ const Customers = () => {
 
       <Pagination
         currentPage={page}
-        totalPages={Math.ceil((search ? dumy.length : customersData.length) / LIMIT)}
+        totalPages={Math.ceil(
+          (search ? dumy.length : customersData.length) / LIMIT
+        )}
         onPageChange={(page) => {
           setPage(page);
           // for fake pagination purposes
@@ -173,6 +193,13 @@ const Customers = () => {
         type={modal.type as "add" | "edit"}
         onClose={() => setModal(DEFAULT_MODAL)}
         data={modal.data}
+      />
+
+      <ModalDeleteCustomer
+        open={modal.openDelete}
+        onClose={() => setModal(DEFAULT_MODAL)}
+        data={modal.data}
+        onDelete={handleDeleteCustomer}
       />
     </div>
   );
