@@ -5,7 +5,7 @@
   min-height: 100vh;
   background-color: #f9fafb;
   width: 100%;
-  font-family: 'outfit', sans-serif;
+  font-family: "outfit", sans-serif;
 }
 
 .no-caret::after {
@@ -24,12 +24,14 @@
   width: fit-content;
 }
 
-input:focus {
+input:focus,
+input:invalid {
   outline: none;
   box-shadow: none;
 }
 
-input.form-control:focus {
+input.form-control:focus,
+input.form-control:invalid {
   outline: none;
   box-shadow: none;
   border-color: inherit;
