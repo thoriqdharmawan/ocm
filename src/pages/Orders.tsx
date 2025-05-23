@@ -1,4 +1,4 @@
-import Table, { Column } from "../components/Table";
+import Table, { Column } from "../components/ui/Table";
 import { ordersData } from "../datas/orders";
 import { OrdersType } from "../models/orders";
 import { formatDate } from "../utils/global";

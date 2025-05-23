@@ -1,5 +1,5 @@
 import { CSSProperties, ReactNode } from "react";
-import { cn } from "../utils/classname";
+import { cn } from "../../utils/classname";
 
 export interface Column<T> {
   id: string;

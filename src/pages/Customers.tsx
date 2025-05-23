@@ -1,10 +1,10 @@
 import { useState } from "react";
-import Dropdown from "../components/Dropdown";
 import ThreeDotsIcon from "../components/icons/ThreeDotsIcon";
-import Modal from "../components/Modal";
-import Table, { Column } from "../components/Table";
 import { customersData } from "../datas/customers";
 import { CustomersType } from "../models/customers";
+import Table, { Column } from "../components/ui/Table";
+import Modal from "../components/ui/Modal";
+import Dropdown from "../components/ui/Dropdown";
 
 const DEFAULT_MODAL = {
   open: false,
