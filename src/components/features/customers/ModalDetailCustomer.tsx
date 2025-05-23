@@ -26,8 +26,6 @@ const Field = ({
   );
 };
 
-const PROFILE = "https://i.pravatar.cc/280";
-
 const ModalDetailCustomer = (props: ModalDetailCustomerProps) => {
   const { open, onClose, data } = props;
 
@@ -81,9 +79,9 @@ const ModalDetailCustomer = (props: ModalDetailCustomerProps) => {
         </div>
         <div className="col d-flex flex-column justify-content-start align-items-center">
           <picture>
-            <source srcSet={PROFILE} type="image/svg+xml" />
+            <source srcSet={data?.image} type="image/svg+xml" />
             <img
-              src={PROFILE}
+              src={data?.image}
               className="img-fluid img-thumbnail rounded-3 p-0"
               alt={data?.name}
             />
