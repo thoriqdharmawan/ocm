@@ -11,7 +11,7 @@ import useAddOrder from "../api/orders/useAddOrder";
 import useUpdateOrder from "../api/orders/useUpdateOrder";
 import useDeleteOrder from "../api/orders/useDeleteOrder";
 import EmptyState from "../components/ui/EmptyState";
-import { on } from "events";
+import ModalDeleteOrder from "../components/features/orders/ModalDeleteOrder";
 
 const LIMIT = 10;
 
@@ -26,6 +26,7 @@ const Orders = () => {
     open: false,
     type: "add",
     data: null as OrdersType | null,
+    openDelete: false,
   });
 
   const { data, isPending } = useGetListOrder({
@@ -102,11 +103,11 @@ const Orders = () => {
           items={[
             {
               label: "Edit",
-              action: () => setModal({ open: true, type: "edit", data }),
+              action: () => setModal((prev) => ({ ...prev, open: true, type: "edit", data })),
             },
             {
               label: "Delete",
-              action: () => handleDeleteOrder(data.id),
+              action: () => setModal((prev) => ({ ...prev, openDelete: true, data })),
             },
           ]}
           label={"..."}
@@ -139,7 +140,7 @@ const Orders = () => {
           onChange={(e) => handleSearch(e.target.value)}
         />
         <button
-          onClick={() => setModal({ open: true, type: "add", data: null })}
+          onClick={() => setModal((prev) => ({ ...prev, open: true, type: "add", data: null, openDelete: false }))}
           type="button"
           className="btn btn-primary"
         >
@@ -171,6 +172,13 @@ const Orders = () => {
           }
         }}
         className="my-4"
+      />
+
+      <ModalDeleteOrder
+        open={modal.openDelete}
+        onClose={() => setModal((prev) => ({ ...prev, openDelete: false, data: null }))}
+        data={modal.data}
+        onDelete={handleDeleteOrder}
       />
     </div>
   );
