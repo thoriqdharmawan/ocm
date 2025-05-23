@@ -17,7 +17,7 @@ interface TableProps<T> {
 
 const Table = <T,>({ columns, data, loading }: TableProps<T>) => {
   return (
-    <div className="px-3 pb-2 shadow-sm bg-white rounded-3 table-responsive">
+    <div className="px-3 pb-2 bg-white rounded-3 table-responsive custom-shadow">
       <table className="table align-middle">
         <thead>
           <tr>
