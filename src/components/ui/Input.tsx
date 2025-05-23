@@ -22,7 +22,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     ref
   ) => {
     return (
-      <div className={cn("mb-3", wrapperClassName)}>
+      <div className={cn(wrapperClassName)}>
         <input
           ref={ref}
           className={cn(

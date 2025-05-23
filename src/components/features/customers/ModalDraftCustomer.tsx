@@ -1,3 +1,4 @@
+import useAddCustomer from "../../../api/customers/useAddCustomer";
 import useUpdateCustomer from "../../../api/customers/useUpdateCustomer";
 import { CustomersType } from "../../../models/customers";
 import { getWhatsAppLink } from "../../../utils/global";
@@ -11,6 +12,7 @@ interface ModalDraftCustomerProps {
   open: boolean;
   onClose: () => void;
   data: CustomersType | null;
+  type: "add" | "edit";
 }
 
 const DEFAULT_FORM = {
@@ -22,7 +24,7 @@ const DEFAULT_FORM = {
 };
 
 const ModalDraftCustomer = (props: ModalDraftCustomerProps) => {
-  const { open, onClose, data } = props;
+  const { open, onClose, data, type } = props;
 
   const [form, setForm] = useState(DEFAULT_FORM);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -39,6 +41,19 @@ const ModalDraftCustomer = (props: ModalDraftCustomerProps) => {
       });
     }
   }, [open]);
+
+  const { mutate: mutateAdd, isPending: isPendingAdd } = useAddCustomer({
+    onSuccess: (data) => {
+      console.log("Customer added successfully", data);
+      setForm(DEFAULT_FORM);
+      onClose();
+    },
+    onError: (error) => {
+      console.error("Error adding customer", error);
+      setForm(DEFAULT_FORM);
+      onClose();
+    },
+  });
 
   const { mutate: mutateUpdate, isPending: isPendingUpdate } =
     useUpdateCustomer({
@@ -80,27 +95,47 @@ const ModalDraftCustomer = (props: ModalDraftCustomerProps) => {
     setForm((prev) => ({ ...prev, imagePreview: null }));
   };
 
+  const handleClose = () => {
+    setForm(DEFAULT_FORM);
+    setErrors({});
+    onClose();
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (validate()) {
-      if (!data) return;
+      if (type === "add") {
+        mutateAdd({
+          body: {
+            name: form.name,
+            address: form.address,
+            email: form.email,
+            phone: form.phone,
+            ...(form.imagePreview && { image: form.imagePreview }),
+          },
+        });
+      } else if (type === "edit") {
+        if (!data) return;
 
-      mutateUpdate({
-        id: data?.id,
-        body: {
-          name: form.name,
-          address: form.address,
-          email: form.email,
-          phone: form.phone,
-          ...(hasUpdateImage && { image: form.imagePreview || "" }),
-        },
-      });
+        mutateUpdate({
+          id: data?.id,
+          body: {
+            name: form.name,
+            address: form.address,
+            email: form.email,
+            phone: form.phone,
+            ...(hasUpdateImage && { image: form.imagePreview || "" }),
+          },
+        });
+      }
     }
   };
 
+  const isDisabled = isPendingUpdate || isPendingAdd;
+
   return (
-    <Modal open={open} title="Edit Customer" onClose={onClose}>
+    <Modal open={open} title="Edit Customer" onClose={handleClose}>
       <form onSubmit={handleSubmit}>
         <div className="row p-3">
           <div className="col">
@@ -182,7 +217,11 @@ const ModalDraftCustomer = (props: ModalDraftCustomerProps) => {
               }
             />
             <div className="d-flex justify-content-end mt-3">
-              <button type="submit" className="btn btn-primary">
+              <button
+                disabled={isDisabled}
+                type="submit"
+                className="btn btn-primary"
+              >
                 Simpan
               </button>
             </div>
