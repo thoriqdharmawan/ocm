@@ -26,6 +26,7 @@ const ModalDraftCustomer = (props: ModalDraftCustomerProps) => {
 
   const [form, setForm] = useState(DEFAULT_FORM);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [hasUpdateImage, setHasUpdateImage] = useState(false);
 
   useEffect(() => {
     if (open && data) {
@@ -75,6 +76,7 @@ const ModalDraftCustomer = (props: ModalDraftCustomerProps) => {
   };
 
   const handleRemoveImage = () => {
+    setHasUpdateImage(true);
     setForm((prev) => ({ ...prev, imagePreview: null }));
   };
 
@@ -91,7 +93,7 @@ const ModalDraftCustomer = (props: ModalDraftCustomerProps) => {
           address: form.address,
           email: form.email,
           phone: form.phone,
-          image: form.imagePreview,
+          ...(hasUpdateImage && { image: form.imagePreview || "" }),
         },
       });
     }
