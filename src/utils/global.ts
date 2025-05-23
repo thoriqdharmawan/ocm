@@ -1,8 +1,26 @@
 import Cookies from "js-cookie";
+import { UserType } from "../models/login";
 
 export const removeCredentials = () => {
   Cookies.remove("user");
   Cookies.remove("access_token");
+};
+
+export const setUserToken = (token: string) => {
+  Cookies.set("access_token", token);
+};
+
+export const getUserToken = (): string | undefined => {
+  return Cookies.get("access_token");
+};
+
+export const setUser = (user: UserType) => {
+  Cookies.set("user", JSON.stringify(user));
+};
+
+export const getUserData = (): UserType | undefined => {
+  const userCookies = Cookies.get("user");
+  return userCookies ? JSON.parse(Cookies.get("user") || "{}") : undefined;
 };
 
 const defaultDateOptions: Intl.DateTimeFormatOptions = {

@@ -4,28 +4,47 @@ import Topbar from "./components/ui/Topbar";
 import Home from "./pages/Home";
 import Customers from "./pages/Customers";
 import Orders from "./pages/Orders";
+import Login from "./pages/Login";
 import { QueryProvider } from "./providers/QueryProvider";
+import OnlyGuest from "./providers/OnlyGuest";
+import RequireAuth from "./providers/RequireAuth";
 
 function App() {
   return (
     <QueryProvider>
       <Router>
-        <div className="d-flex flex-column min-vh-100 w-100">
-          <Topbar />
-
-          <div className="d-flex">
-            <div className="d-none d-md-block">
-              <Sidebar />
-            </div>
-            <main className="p-3 w-100">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/customers" element={<Customers />} />
-                <Route path="/orders" element={<Orders />} />
-              </Routes>
-            </main>
-          </div>
-        </div>
+        <Routes>
+          <Route
+            path="/login"
+            element={
+              <OnlyGuest>
+                <Login />
+              </OnlyGuest>
+            }
+          />
+          <Route
+            path="/*"
+            element={
+              <RequireAuth>
+                <div className="d-flex flex-column min-vh-100 w-100">
+                  <Topbar />
+                  <div className="d-flex">
+                    <div className="d-none d-md-block">
+                      <Sidebar />
+                    </div>
+                    <main className="p-3 w-100">
+                      <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/customers" element={<Customers />} />
+                        <Route path="/orders" element={<Orders />} />
+                      </Routes>
+                    </main>
+                  </div>
+                </div>
+              </RequireAuth>
+            }
+          />
+        </Routes>
       </Router>
     </QueryProvider>
   );
