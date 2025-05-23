@@ -15,6 +15,22 @@ import ModalDeleteOrder from "../components/features/orders/ModalDeleteOrder";
 
 const LIMIT = 10;
 
+interface ModalState {
+  openDetail: boolean;
+  openDraft: boolean;
+  openDelete: boolean;
+  data: OrdersType | null;
+  type: "add" | "edit" | "detail";
+}
+
+const DEFAULT_MODAL: ModalState = {
+  openDetail: false,
+  openDraft: false,
+  type: "add",
+  data: null as OrdersType | null,
+  openDelete: false,
+};
+
 const Orders = () => {
   const [orders, setOrders] = useState<OrdersType[]>(
     ordersData.slice(0, LIMIT)
@@ -22,12 +38,7 @@ const Orders = () => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
 
-  const [modal, setModal] = useState({
-    open: false,
-    type: "add",
-    data: null as OrdersType | null,
-    openDelete: false,
-  });
+  const [modal, setModal] = useState<ModalState>(DEFAULT_MODAL);
 
   const { data, isPending } = useGetListOrder({
     params: {
@@ -56,7 +67,7 @@ const Orders = () => {
     },
     onError: (error, variables) => {
       setOrders((prev) => prev.filter((o) => o.id !== variables.id));
-    }
+    },
   });
 
   const handleDeleteOrder = (id: number) => {
@@ -102,12 +113,29 @@ const Orders = () => {
         <Dropdown
           items={[
             {
+              label: "Detail",
+              action: () =>
+                setModal((prev) => ({
+                  ...prev,
+                  openDetail: true,
+                  type: "detail",
+                  data,
+                })),
+            },
+            {
               label: "Edit",
-              action: () => setModal((prev) => ({ ...prev, open: true, type: "edit", data })),
+              action: () =>
+                setModal((prev) => ({
+                  ...prev,
+                  openDraft: true,
+                  type: "edit",
+                  data,
+                })),
             },
             {
               label: "Delete",
-              action: () => setModal((prev) => ({ ...prev, openDelete: true, data })),
+              action: () =>
+                setModal((prev) => ({ ...prev, openDelete: true, data })),
             },
           ]}
           label={"..."}
@@ -140,7 +168,9 @@ const Orders = () => {
           onChange={(e) => handleSearch(e.target.value)}
         />
         <button
-          onClick={() => setModal((prev) => ({ ...prev, open: true, type: "add", data: null, openDelete: false }))}
+          onClick={() =>
+            setModal((prev) => ({ ...prev, openDraft: true, type: "add" }))
+          }
           type="button"
           className="btn btn-primary"
         >
@@ -176,7 +206,7 @@ const Orders = () => {
 
       <ModalDeleteOrder
         open={modal.openDelete}
-        onClose={() => setModal((prev) => ({ ...prev, openDelete: false, data: null }))}
+        onClose={() => setModal(DEFAULT_MODAL)}
         data={modal.data}
         onDelete={handleDeleteOrder}
       />
