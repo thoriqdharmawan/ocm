@@ -1,3 +1,4 @@
+import useDeleteCustomer from "../../../api/customers/useDeleteCustomer";
 import { CustomersType } from "../../../models/customers";
 import Modal from "../../ui/Modal";
 import { useState } from "react";
@@ -28,7 +29,7 @@ const ModalDeleteCustomer = (props: ModalDeleteCustomerProps) => {
   return (
     <Modal size="md" open={open} title="Delete Customer" onClose={onClose}>
       <div className="p-4">
-        <h5>Are you sure you want to delete the following customer?</h5>
+        <h5 className="mb-4">Are you sure you want to delete the following customer?</h5>
         <div className="ml-4">
           <strong>{data?.name}</strong>
           <div className="text-secondary small">{data?.email}</div>

@@ -11,6 +11,7 @@ import Input from "../components/ui/Input";
 import useGetListCustomer from "../api/customers/useGetListCustomer";
 import EmptyState from "../components/ui/EmptyState";
 import ModalDeleteCustomer from "../components/features/customers/ModalDeleteCustomer";
+import useDeleteCustomer from "../api/customers/useDeleteCustomer";
 
 interface ModalState {
   openDetail: boolean;
@@ -46,6 +47,15 @@ const Customers = () => {
     params: {
       offset: (page - 1) * LIMIT,
       limit: LIMIT,
+    },
+  });
+
+  const { mutate } = useDeleteCustomer({
+    onSuccess: (data) => {
+      console.log("Customer deleted successfully", data);
+    },
+    onError: (error, variables) => {
+      setDumy((prev) => prev.filter((c) => c.id !== variables.id));
     },
   });
 
@@ -199,7 +209,7 @@ const Customers = () => {
         open={modal.openDelete}
         onClose={() => setModal(DEFAULT_MODAL)}
         data={modal.data}
-        onDelete={handleDeleteCustomer}
+        onDelete={(id) => mutate({ id })}
       />
     </div>
   );
