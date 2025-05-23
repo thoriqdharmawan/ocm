@@ -5,6 +5,7 @@ import { CustomersType } from "../models/customers";
 import Table, { Column } from "../components/ui/Table";
 import Dropdown from "../components/ui/Dropdown";
 import ModalDetailCustomer from "../components/features/customers/ModalDetailCustomer";
+import Pagination from "../components/ui/Pagination";
 
 interface ModalState {
   open: boolean;
@@ -18,6 +19,8 @@ const DEFAULT_MODAL: ModalState = {
 
 const Customers = () => {
   const [modal, setModal] = useState<ModalState>(DEFAULT_MODAL);
+
+  const [page, setPage] = useState(1);
 
   const colums: Column<CustomersType>[] = [
     {
@@ -65,7 +68,14 @@ const Customers = () => {
     <div className="container">
       <h2 className="my-4">Customers Page</h2>
 
-      <Table columns={colums} data={customersData} />
+      <Table columns={colums} data={customersData.slice(0, 10)} />
+
+      <Pagination
+        currentPage={page}
+        totalPages={2}
+        onPageChange={(page) => setPage(page)}
+        className="my-4"
+      />
 
       <ModalDetailCustomer
         open={modal.open}
