@@ -1,13 +1,16 @@
+import useUpdateCustomer from "../../../api/customers/useUpdateCustomer";
+import { CustomersType } from "../../../models/customers";
 import { getWhatsAppLink } from "../../../utils/global";
 import Field from "../../ui/Field";
 import Input from "../../ui/Input";
 import Modal from "../../ui/Modal";
 import UploadImage from "../../ui/UploadImage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface ModalDraftCustomerProps {
   open: boolean;
   onClose: () => void;
+  data: CustomersType | null;
 }
 
 const DEFAULT_FORM = {
@@ -15,15 +18,40 @@ const DEFAULT_FORM = {
   address: "",
   email: "",
   phone: "",
-  image: null as File | null,
   imagePreview: null as string | null,
 };
 
 const ModalDraftCustomer = (props: ModalDraftCustomerProps) => {
-  const { open, onClose } = props;
+  const { open, onClose, data } = props;
 
   const [form, setForm] = useState(DEFAULT_FORM);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+  useEffect(() => {
+    if (open && data) {
+      setForm({
+        name: data.name,
+        address: data.address,
+        email: data.email,
+        phone: data.phone,
+        imagePreview: data.image,
+      });
+    }
+  }, [open]);
+
+  const { mutate: mutateUpdate, isPending: isPendingUpdate } =
+    useUpdateCustomer({
+      onSuccess: (data) => {
+        console.log("Customer updated successfully", data);
+        setForm(DEFAULT_FORM);
+        onClose();
+      },
+      onError: (error) => {
+        console.error("Error updating customer", error);
+        setForm(DEFAULT_FORM);
+        onClose();
+      },
+    });
 
   const validate = () => {
     const newErrors: { [key: string]: string } = {};
@@ -46,14 +74,26 @@ const ModalDraftCustomer = (props: ModalDraftCustomerProps) => {
     setForm((prev) => ({ ...prev, image: file, imagePreview: preview }));
   };
 
+  const handleRemoveImage = () => {
+    setForm((prev) => ({ ...prev, imagePreview: null }));
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (validate()) {
-      console.log("Submit data:", form);
+      if (!data) return;
 
-      setForm(DEFAULT_FORM);
-      onClose();
+      mutateUpdate({
+        id: data?.id,
+        body: {
+          name: form.name,
+          address: form.address,
+          email: form.email,
+          phone: form.phone,
+          image: form.imagePreview,
+        },
+      });
     }
   };
 
@@ -116,11 +156,27 @@ const ModalDraftCustomer = (props: ModalDraftCustomerProps) => {
             <Field
               label=""
               value={
-                <UploadImage
-                  previewSize={280}
-                  value={form.imagePreview}
-                  onChange={handleImageChange}
-                />
+                form?.imagePreview ? (
+                  <div className="col d-flex flex-column justify-content-start align-items-center">
+                    <img
+                      src={form?.imagePreview}
+                      className="img-fluid img-thumbnail rounded-3 p-0"
+                      alt=""
+                    />
+                    <button
+                      onClick={handleRemoveImage}
+                      className="btn btn-outline-danger btn-sm mt-2"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ) : (
+                  <UploadImage
+                    previewSize={280}
+                    value={form.imagePreview}
+                    onChange={handleImageChange}
+                  />
+                )
               }
             />
             <div className="d-flex justify-content-end mt-3">

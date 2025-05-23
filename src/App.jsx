@@ -4,27 +4,30 @@ import Topbar from "./components/ui/Topbar";
 import Home from "./pages/Home";
 import Customers from "./pages/Customers";
 import Orders from "./pages/Orders";
+import { QueryProvider } from "./providers/QueryProvider";
 
 function App() {
   return (
-    <Router>
-      <div className="d-flex flex-column min-vh-100 w-100">
-        <Topbar />
+    <QueryProvider>
+      <Router>
+        <div className="d-flex flex-column min-vh-100 w-100">
+          <Topbar />
 
-        <div className="d-flex">
-          <div className="d-none d-md-block">
-            <Sidebar />
+          <div className="d-flex">
+            <div className="d-none d-md-block">
+              <Sidebar />
+            </div>
+            <main className="p-3 w-100">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/customers" element={<Customers />} />
+                <Route path="/orders" element={<Orders />} />
+              </Routes>
+            </main>
           </div>
-          <main className="p-3 w-100">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/customers" element={<Customers />} />
-              <Route path="/orders" element={<Orders />} />
-            </Routes>
-          </main>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </QueryProvider>
   );
 }
 

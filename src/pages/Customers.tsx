@@ -94,6 +94,7 @@ const Customers = () => {
       <ModalDraftCustomer
         open={modal.openDraft}
         onClose={() => setModal(DEFAULT_MODAL)}
+        data={modal.data}
       />
     </div>
   );

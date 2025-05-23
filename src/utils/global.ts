@@ -1,3 +1,10 @@
+import Cookies from "js-cookie";
+
+export const removeCredentials = () => {
+  Cookies.remove("user");
+  Cookies.remove("access_token");
+};
+
 const defaultDateOptions: Intl.DateTimeFormatOptions = {
   year: "numeric",
   month: "short",
@@ -12,7 +19,9 @@ export function formatDate(
   return new Intl.DateTimeFormat("en-US", options).format(dateObj);
 }
 
-export function getWhatsAppLink(phoneNumber: string | number | undefined): string {
+export function getWhatsAppLink(
+  phoneNumber: string | number | undefined
+): string {
   if (!phoneNumber) {
     return "";
   }
