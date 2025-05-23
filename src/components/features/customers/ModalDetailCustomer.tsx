@@ -20,7 +20,7 @@ const ModalDetailCustomer = (props: ModalDetailCustomerProps) => {
   return (
     <Modal open={open} title="Detail Customer" onClose={onClose}>
       <div ref={elementRef} id="detail-customer" className="bg-white p-3">
-        <div className="row" ref={elementRef}>
+        <div className="row">
           <div className="col">
             <div className="row">
               <div className="col">
