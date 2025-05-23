@@ -19,21 +19,21 @@ const ModalDraftCustomer = (props: ModalDraftCustomerProps) => {
           <Field
             label="Name"
             value={
-              <Input label="Nama" placeholder="eg: Thoriq Dharmawan" error="" />
+              <Input label="Nama" placeholder="Input name" error="" />
             }
           />
 
           <Field
             label="Address"
             value={
-              <Input label="Alamat" placeholder="eg: Jl. Raya No. 1" error="" />
+              <Input label="Alamat" placeholder="Input address" error="" />
             }
           />
 
           <Field
             label="Email"
             value={
-              <Input label="Email" placeholder="eg:thoriq@email.com" error="" />
+              <Input label="Email" placeholder="Input email" error="" />
             }
           />
           <Field
@@ -41,7 +41,7 @@ const ModalDraftCustomer = (props: ModalDraftCustomerProps) => {
             value={
               <Input
                 label="No. Telepon"
-                placeholder="eg: 08123456789"
+                placeholder="08123456789"
                 error=""
                 helperText={getWhatsAppLink("08123456789")}
               />
