@@ -39,6 +39,8 @@ const useGetListCustomer = (props?: Props) => {
   const query = useQuery({
     queryKey: ["list-customer", props?.params],
     queryFn,
+    // disable revalidate after error
+    retry: false,
   });
 
   return { ...query, meta };

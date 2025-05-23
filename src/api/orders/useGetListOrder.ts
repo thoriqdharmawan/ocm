@@ -37,6 +37,8 @@ const useGetListOrder = (props?: Props) => {
   const query = useQuery({
     queryKey: ["list-order", props?.params],
     queryFn,
+    // disable revalidate after error
+    retry: false,
   });
 
   return { ...query, meta };
