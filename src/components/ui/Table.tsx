@@ -22,7 +22,12 @@ const Table = <T,>({ columns, data, loading }: TableProps<T>) => {
         <thead>
           <tr>
             {columns?.map((column) => (
-              <th key={column.id} className={cn("py-3 text-center", column.className)} style={column.style} scope="col">
+              <th
+                key={column.id}
+                className={cn("py-3 text-center", column.className)}
+                style={column.style}
+                scope="col"
+              >
                 {column.label}
               </th>
             ))}
@@ -34,7 +39,11 @@ const Table = <T,>({ columns, data, loading }: TableProps<T>) => {
               <tr key={key}>
                 {columns.map((col, idx) => {
                   return (
-                    <td key={`${key}-${idx}`} className={col.className}>
+                    <td
+                      key={`${key}-${idx}`}
+                      className={cn("fw-light fs-6", col.className)}
+                      style={col.style}
+                    >
                       {col.cell({ data: dataItem })}
                     </td>
                   );
