@@ -15,7 +15,10 @@ interface ModalDetailCustomerProps {
 const ModalDetailOrder = (props: ModalDetailCustomerProps) => {
   const { open, onClose, data } = props;
 
-  const { elementRef, downloadImage } = useDownloadImage();
+  const { elementRef, downloadImage } = useDownloadImage({
+    width: 798,
+    height: 372,
+  });
 
   return (
     <Modal open={open} title="Detail Order" onClose={onClose}>

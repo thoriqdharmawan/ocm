@@ -1,7 +1,16 @@
 import { useRef } from "react";
 import { toPng } from "html-to-image";
 
-export const useDownloadImage = () => {
+interface UseDownloadImage {
+  width: number;
+  height: number;
+  multiplier?: number;
+  removeElement?: string;
+}
+
+export const useDownloadImage = (props: UseDownloadImage) => {
+  const { width, height, multiplier = 1.5, removeElement } = props;
+
   const elementRef = useRef<HTMLDivElement>(null);
 
   const downloadImage = async (fileName: string = "download.png") => {
@@ -9,18 +18,20 @@ export const useDownloadImage = () => {
       const clone = elementRef.current.cloneNode(true) as HTMLDivElement;
       document.body.appendChild(clone);
 
-      clone.style.width = "798px";
-      clone.style.height = "306px";
+      clone.style.width = `${width}px`;
+      clone.style.height = `${height}px`;
 
-      const button = clone.querySelector("#button-download-customer");
-      if (button && button instanceof HTMLElement) {
-        button.style.display = "none";
+      if (removeElement) {
+        const elementToRemove = clone.querySelector(removeElement);
+        if (elementToRemove && elementToRemove instanceof HTMLElement) {
+          elementToRemove.remove();
+        }
       }
 
       try {
         const dataUrl = await toPng(clone, {
-          canvasHeight: 306 * 1.5,
-          canvasWidth: 798 * 1.5,
+          canvasWidth: width * multiplier,
+          canvasHeight: height * multiplier,
           quality: 1,
           style: {
             width: "100%",
