@@ -11,6 +11,7 @@ import useAddOrder from "../api/orders/useAddOrder";
 import useUpdateOrder from "../api/orders/useUpdateOrder";
 import useDeleteOrder from "../api/orders/useDeleteOrder";
 import EmptyState from "../components/ui/EmptyState";
+import { on } from "events";
 
 const LIMIT = 10;
 
@@ -52,6 +53,9 @@ const Orders = () => {
     onSuccess: (data, variables) => {
       setOrders((prev) => prev.filter((o) => o.id !== variables.id));
     },
+    onError: (error, variables) => {
+      setOrders((prev) => prev.filter((o) => o.id !== variables.id));
+    }
   });
 
   const handleDeleteOrder = (id: number) => {
