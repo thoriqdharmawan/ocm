@@ -6,14 +6,17 @@ import Table, { Column } from "../components/ui/Table";
 import Dropdown from "../components/ui/Dropdown";
 import ModalDetailCustomer from "../components/features/customers/ModalDetailCustomer";
 import Pagination from "../components/ui/Pagination";
+import ModalDraftCustomer from "../components/features/customers/ModalDraftCustomer";
 
 interface ModalState {
-  open: boolean;
+  openDetail: boolean;
+  openDraft: boolean;
   data: CustomersType | null;
 }
 
 const DEFAULT_MODAL: ModalState = {
-  open: false,
+  openDetail: false,
+  openDraft: false,
   data: null,
 };
 
@@ -52,9 +55,14 @@ const Customers = () => {
           items={[
             {
               label: "Detail",
-              action: () => setModal((prev) => ({ ...prev, open: true, data })),
+              action: () =>
+                setModal((prev) => ({ ...prev, openDetail: true, data })),
             },
-            { label: "Edit", action: () => {} },
+            {
+              label: "Edit",
+              action: () =>
+                setModal((prev) => ({ ...prev, openDraft: true, data })),
+            },
             { label: "Hapus", action: () => {} },
           ]}
           label={<ThreeDotsIcon />}
@@ -78,9 +86,14 @@ const Customers = () => {
       />
 
       <ModalDetailCustomer
-        open={modal.open}
-        onClose={() => setModal((prev) => ({ ...prev, open: false }))}
+        open={modal.openDetail}
+        onClose={() => setModal(DEFAULT_MODAL)}
         data={modal.data}
+      />
+
+      <ModalDraftCustomer
+        open={modal.openDraft}
+        onClose={() => setModal(DEFAULT_MODAL)}
       />
     </div>
   );
