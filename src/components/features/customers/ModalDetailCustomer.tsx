@@ -68,7 +68,7 @@ const ModalDetailCustomer = (props: ModalDetailCustomerProps) => {
                   type="button"
                   id="button-download-customer"
                 >
-                  Download
+                  Download as Image
                 </button>
               </div>
             </div>
