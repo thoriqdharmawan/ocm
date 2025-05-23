@@ -8,6 +8,7 @@ import ModalDetailCustomer from "../components/features/customers/ModalDetailCus
 import Pagination from "../components/ui/Pagination";
 import ModalDraftCustomer from "../components/features/customers/ModalDraftCustomer";
 import Input from "../components/ui/Input";
+import useGetListCustomer from "../api/customers/useGetListCustomer";
 
 interface ModalState {
   openDetail: boolean;
@@ -23,10 +24,24 @@ const DEFAULT_MODAL: ModalState = {
   type: "add",
 };
 
+const LIMIT = 10;
+
 const Customers = () => {
   const [modal, setModal] = useState<ModalState>(DEFAULT_MODAL);
 
+  const [dumy, setDumy] = useState<CustomersType[]>(customersData.slice(0, 10));
+
   const [page, setPage] = useState(1);
+
+  /**
+   * returns error, for pagination purposes, I don't use data here
+   */
+  const { data, isPending } = useGetListCustomer({
+    params: {
+      offset: (page - 1) * LIMIT,
+      limit: LIMIT,
+    },
+  });
 
   const colums: Column<CustomersType>[] = [
     {
@@ -102,12 +117,17 @@ const Customers = () => {
         </button>
       </div>
 
-      <Table columns={colums} data={customersData.slice(0, 10)} />
+      <Table columns={colums} data={dumy} />
 
       <Pagination
         currentPage={page}
-        totalPages={2}
-        onPageChange={(page) => setPage(page)}
+        totalPages={Math.ceil(customersData.length / LIMIT)}
+        onPageChange={(page) => {
+          setPage(page);
+
+          // for fake pagination purposes
+          setDumy(customersData.slice((page - 1) * LIMIT, page * LIMIT));
+        }}
         className="my-4"
       />
 
