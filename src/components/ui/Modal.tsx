@@ -26,13 +26,12 @@ const Modal = (props: ModalProps) => {
             <h5 className="modal-title">{title}</h5>
             <button type="button" className="btn-close" onClick={handleClose} />
           </div>
-          <div className="modal-body">
+          <div className="modal-body p-0 overflow-hidden rounded">
             {children}
           </div>
         </div>
       </div>
 
-      {/* Overlay backdrop */}
       <div className="modal-backdrop fade show" onClick={handleClose} />
     </div>
   );
