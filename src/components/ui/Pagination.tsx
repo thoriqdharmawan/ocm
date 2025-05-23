@@ -1,4 +1,6 @@
 import { cn } from "../../utils/classname";
+import ChevronLeftIcon from "../icons/ChevronLeftIcon";
+import ChevronRightIcon from "../icons/ChevronRightIcon";
 
 interface PaginationProps {
   currentPage: number;
@@ -60,7 +62,7 @@ const Pagination: React.FC<PaginationProps> = ({
             disabled={currentPage === 1}
             tabIndex={currentPage === 1 ? -1 : 0}
           >
-            &laquo;
+            <ChevronLeftIcon />
           </button>
         </li>
         {pageNumbers.map((page, idx) =>
@@ -124,7 +126,7 @@ const Pagination: React.FC<PaginationProps> = ({
             disabled={currentPage === totalPages}
             tabIndex={currentPage === totalPages ? -1 : 0}
           >
-            &raquo;
+            <ChevronRightIcon />
           </button>
         </li>
       </ul>
