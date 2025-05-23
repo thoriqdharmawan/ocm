@@ -134,7 +134,7 @@ const Customers = () => {
 
   return (
     <div className="container">
-      <h2 className="my-4">Customers Page</h2>
+      <h2 className="my-4">Customers</h2>
 
       <div className="d-flex justify-content-between align-items-center mb-4">
         <Input
