@@ -6,6 +6,7 @@ import { OrdersType } from "../../../models/orders";
 import { PaymentMethod, Courier } from "../../../models/orders";
 import useAddOrder from "../../../api/orders/useAddOrder";
 import useUpdateOrder from "../../../api/orders/useUpdateOrder";
+import { currencyToStringNumber, formatCurrency } from "../../../utils/global";
 
 interface ModalDraftOrderProps {
   open: boolean;
@@ -93,9 +94,24 @@ const ModalDraftOrder = (props: ModalDraftOrderProps) => {
     e.preventDefault();
     if (validate()) {
       if (type === "add") {
-        mutateAdd({ body: { ...form, paymentMethod: form.paymentMethod as PaymentMethod, courier: form.courier as Courier } });
+        mutateAdd({
+          body: {
+            ...form,
+            paymentMethod: form.paymentMethod as PaymentMethod,
+            courier: form.courier as Courier,
+            totalAmount: Number(form.totalAmount),
+          },
+        });
       } else if (type === "edit" && data) {
-        mutateUpdate({ id: data.id, body: { ...form, paymentMethod: form.paymentMethod as PaymentMethod, courier: form.courier as Courier } });
+        mutateUpdate({
+          id: data.id,
+          body: {
+            ...form,
+            paymentMethod: form.paymentMethod as PaymentMethod,
+            courier: form.courier as Courier,
+            totalAmount: Number(form.totalAmount),
+          },
+        });
       }
     }
   };
@@ -155,12 +171,15 @@ const ModalDraftOrder = (props: ModalDraftOrderProps) => {
               label="Total Amount"
               value={
                 <Input
-                  type="number"
+                  type="text"
                   placeholder="Total Amount"
                   error={errors.totalAmount}
-                  value={form.totalAmount}
+                  value={formatCurrency(form.totalAmount || 0)}
                   onChange={(e) =>
-                    handleChange("totalAmount", Number(e.target.value))
+                    handleChange(
+                      "totalAmount",
+                      currencyToStringNumber(e.target.value)
+                    )
                   }
                 />
               }
@@ -176,7 +195,10 @@ const ModalDraftOrder = (props: ModalDraftOrderProps) => {
                   }`}
                   value={form.paymentMethod}
                   onChange={(e) =>
-                    handleChange("paymentMethod", e.target.value as PaymentMethod)
+                    handleChange(
+                      "paymentMethod",
+                      e.target.value as PaymentMethod
+                    )
                   }
                 >
                   <option value="">Select Payment Method</option>
@@ -184,7 +206,9 @@ const ModalDraftOrder = (props: ModalDraftOrderProps) => {
                   <option value="COD">COD</option>
                   <option value="OVO">OVO</option>
                   <option value="GoPay">GoPay</option>
-                  <option value="Transfer Bank Mandiri">Transfer Bank Mandiri</option>
+                  <option value="Transfer Bank Mandiri">
+                    Transfer Bank Mandiri
+                  </option>
                 </select>
               }
             />
@@ -216,9 +240,13 @@ const ModalDraftOrder = (props: ModalDraftOrderProps) => {
               label="Courier"
               value={
                 <select
-                  className={`form-select${errors.courier ? " is-invalid" : ""}`}
+                  className={`form-select${
+                    errors.courier ? " is-invalid" : ""
+                  }`}
                   value={form.courier}
-                  onChange={(e) => handleChange("courier", e.target.value as Courier)}
+                  onChange={(e) =>
+                    handleChange("courier", e.target.value as Courier)
+                  }
                 >
                   <option value="">Select Courier</option>
                   <option value="JNE">JNE</option>

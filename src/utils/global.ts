@@ -33,3 +33,22 @@ export function getWhatsAppLink(
   const formattedNumber = `${phoneNumber}`.replace(/\D/g, "");
   return `https://wa.me/${formattedNumber}`;
 }
+
+export const currencyToStringNumber = (value: string): string => {
+  return value.replace(/\./g, "").replace(/[^0-9]/g, "");
+};
+
+export const formatCurrency = (value?: number | string): string => {
+  if (value === undefined || value === null) {
+    return "";
+  }
+
+  const amount = typeof value === "string" ? parseFloat(value) : value;
+
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
+};
