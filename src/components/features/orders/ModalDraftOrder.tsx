@@ -20,10 +20,10 @@ const DEFAULT_FORM = {
   orderDate: "",
   status: "pending" as OrdersType["status"],
   totalAmount: 0,
-  paymentMethod: "Transfer Bank BCA" as PaymentMethod,
+  paymentMethod: "",
   customerName: "",
   shippingAddress: "",
-  courier: "JNE" as Courier,
+  courier: "",
   trackingNumber: "",
 };
 
