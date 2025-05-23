@@ -12,6 +12,7 @@ import useUpdateOrder from "../api/orders/useUpdateOrder";
 import useDeleteOrder from "../api/orders/useDeleteOrder";
 import EmptyState from "../components/ui/EmptyState";
 import ModalDeleteOrder from "../components/features/orders/ModalDeleteOrder";
+import ModalDetailOrder from "../components/features/orders/ModalDetailOrder";
 
 const LIMIT = 10;
 
@@ -209,6 +210,12 @@ const Orders = () => {
         onClose={() => setModal(DEFAULT_MODAL)}
         data={modal.data}
         onDelete={handleDeleteOrder}
+      />
+
+      <ModalDetailOrder
+        open={modal.openDetail}
+        onClose={() => setModal(DEFAULT_MODAL)}
+        data={modal.data}
       />
     </div>
   );
