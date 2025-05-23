@@ -13,6 +13,7 @@ import useDeleteOrder from "../api/orders/useDeleteOrder";
 import EmptyState from "../components/ui/EmptyState";
 import ModalDeleteOrder from "../components/features/orders/ModalDeleteOrder";
 import ModalDetailOrder from "../components/features/orders/ModalDetailOrder";
+import ModalDraftOrder from "../components/features/orders/ModalDraftOrder";
 import StatusBadge from "../components/ui/StatusBadge";
 
 const LIMIT = 10;
@@ -42,24 +43,11 @@ const Orders = () => {
 
   const [modal, setModal] = useState<ModalState>(DEFAULT_MODAL);
 
+  // fake get list orders
   const { data, isPending } = useGetListOrder({
     params: {
       offset: (page - 1) * LIMIT,
       limit: LIMIT,
-    },
-  });
-
-  const { mutate: addOrder } = useAddOrder({
-    onSuccess: (data) => {
-      setOrders((prev) => [data.data, ...prev]);
-    },
-  });
-
-  const { mutate: updateOrder } = useUpdateOrder({
-    onSuccess: (data) => {
-      setOrders((prev) =>
-        prev.map((o) => (o.id === data.data.id ? data.data : o))
-      );
     },
   });
 
@@ -215,6 +203,13 @@ const Orders = () => {
 
       <ModalDetailOrder
         open={modal.openDetail}
+        onClose={() => setModal(DEFAULT_MODAL)}
+        data={modal.data}
+      />
+
+      <ModalDraftOrder
+        open={modal.openDraft}
+        type={modal.type as "add" | "edit"}
         onClose={() => setModal(DEFAULT_MODAL)}
         data={modal.data}
       />
