@@ -1,31 +1,16 @@
-import { ReactNode } from "react";
 import { CustomersType } from "../../../models/customers";
 import { getWhatsAppLink } from "../../../utils/global";
 import Modal from "../../ui/Modal";
 import WhartsAppIcon from "../../icons/WhatsAppIcon";
 import Barcode from "react-barcode";
 import { useDownloadImage } from "../../../hooks/useDownloadImage";
+import Field from "../../ui/Field";
 
 interface ModalDetailCustomerProps {
   open: boolean;
   onClose: () => void;
   data: CustomersType | null;
 }
-
-const Field = ({
-  label,
-  value,
-}: {
-  label: string;
-  value: string | ReactNode;
-}) => {
-  return (
-    <div className="mb-3">
-      <label className="fs-7 text-secondary fw-light">{label}</label>
-      <div className="m-0">{value}</div>
-    </div>
-  );
-};
 
 const ModalDetailCustomer = (props: ModalDetailCustomerProps) => {
   const { open, onClose, data } = props;
