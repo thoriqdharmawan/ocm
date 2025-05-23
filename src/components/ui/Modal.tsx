@@ -20,7 +20,7 @@ const Modal = (props: ModalProps) => {
 
   return (
     <div className="modal fade show d-block">
-      <div className="modal-dialog modal-dialog-centered position-relative" style={{ zIndex: 1051}}>
+      <div className="modal-dialog modal-lg modal-dialog-centered position-relative" style={{ zIndex: 1051}}>
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">{title}</h5>
