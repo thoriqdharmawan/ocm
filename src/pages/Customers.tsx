@@ -9,6 +9,7 @@ import Pagination from "../components/ui/Pagination";
 import ModalDraftCustomer from "../components/features/customers/ModalDraftCustomer";
 import Input from "../components/ui/Input";
 import useGetListCustomer from "../api/customers/useGetListCustomer";
+import EmptyState from "../components/ui/EmptyState";
 
 interface ModalState {
   openDetail: boolean;
@@ -137,7 +138,14 @@ const Customers = () => {
         </button>
       </div>
 
-      <Table columns={colums} data={dumy} />
+      {dumy.length === 0 ? (
+        <EmptyState
+          title={search ? "Customer not found" : undefined}
+          description={search ? `No customers match the keyword "${search}".` : undefined}
+        />
+      ) : (
+        <Table columns={colums} data={dumy} />
+      )}
 
       <Pagination
         currentPage={page}
