@@ -33,6 +33,8 @@ const Customers = () => {
 
   const [page, setPage] = useState(1);
 
+  const [search, setSearch] = useState("");
+
   /**
    * returns error, for pagination purposes, I don't use data here
    */
@@ -100,12 +102,30 @@ const Customers = () => {
     },
   ];
 
+  // Fake search handler
+  const handleSearch = (value: string) => {
+    setSearch(value);
+    const filtered = customersData.filter((c) =>
+      c.name.toLowerCase().includes(value.toLowerCase()) ||
+      c.email.toLowerCase().includes(value.toLowerCase()) ||
+      c.phone.toLowerCase().includes(value.toLowerCase()) ||
+      c.address.toLowerCase().includes(value.toLowerCase())
+    );
+    setDumy(filtered.slice(0, LIMIT));
+    setPage(1);
+  };
+
   return (
     <div className="container">
       <h2 className="my-4">Customers Page</h2>
 
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <Input placeholder="Search Customers" wrapperClassName="w-50" />
+        <Input
+          placeholder="Search Customers"
+          wrapperClassName="w-50"
+          value={search}
+          onChange={e => handleSearch(e.target.value)}
+        />
         <button
           onClick={() =>
             setModal((prev) => ({ ...prev, openDraft: true, type: "add" }))
@@ -121,12 +141,15 @@ const Customers = () => {
 
       <Pagination
         currentPage={page}
-        totalPages={Math.ceil(customersData.length / LIMIT)}
+        totalPages={Math.ceil((search ? dumy.length : customersData.length) / LIMIT)}
         onPageChange={(page) => {
           setPage(page);
-
           // for fake pagination purposes
-          setDumy(customersData.slice((page - 1) * LIMIT, page * LIMIT));
+          if (search) {
+            setDumy((prev) => prev.slice((page - 1) * LIMIT, page * LIMIT));
+          } else {
+            setDumy(customersData.slice((page - 1) * LIMIT, page * LIMIT));
+          }
         }}
         className="my-4"
       />
