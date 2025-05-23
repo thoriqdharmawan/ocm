@@ -60,6 +60,7 @@ const ModalDetailOrder = (props: ModalDetailCustomerProps) => {
                 <Barcode
                   value={data?.trackingNumber || ""}
                   height={24}
+                  width={1.5}
                   displayValue={false}
                 />
               }
