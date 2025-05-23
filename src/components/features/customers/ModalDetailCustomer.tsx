@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { CustomersType } from "../../../models/customers";
 import { getWhatsAppLink } from "../../../utils/global";
 import Modal from "../../ui/Modal";
+import WhartsAppIcon from "../../icons/WhatsAppIcon";
 
 interface ModalDetailCustomerProps {
   open: boolean;
@@ -36,14 +37,15 @@ const ModalDetailCustomer = (props: ModalDetailCustomerProps) => {
         <Field
           label="No. Telepon"
           value={
-            <div className="mt-2">
+            <div className="mt-1">
               <a
                 href={getWhatsAppLink(data?.phone || "")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-decoration-none text-dark border px-3 py-1 rounded-2"
+                className="text-decoration-none text-dark border px-3 py-1 rounded-2 d-flex align-items-center gap-2 w-fit"
               >
-                {data?.phone || ""}
+                <WhartsAppIcon className="text-success" />{" "}
+                <span>{data?.phone || ""}</span>
               </a>
             </div>
           }
