@@ -12,9 +12,13 @@ const defaultDateOptions: Intl.DateTimeFormatOptions = {
 };
 
 export function formatDate(
-  date: string | Date,
+  date?: string | Date,
   options: Intl.DateTimeFormatOptions = defaultDateOptions
 ): string {
+  if (!date) {
+    return "";
+  }
+
   const dateObj = typeof date === "string" ? new Date(date) : date;
   return new Intl.DateTimeFormat("en-US", options).format(dateObj);
 }

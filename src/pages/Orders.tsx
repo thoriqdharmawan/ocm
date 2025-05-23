@@ -13,6 +13,7 @@ import useDeleteOrder from "../api/orders/useDeleteOrder";
 import EmptyState from "../components/ui/EmptyState";
 import ModalDeleteOrder from "../components/features/orders/ModalDeleteOrder";
 import ModalDetailOrder from "../components/features/orders/ModalDetailOrder";
+import StatusBadge from "../components/ui/StatusBadge";
 
 const LIMIT = 10;
 
@@ -92,7 +93,7 @@ const Orders = () => {
     {
       id: "status",
       label: "Status",
-      cell: ({ data }) => data.status,
+      cell: ({ data }) => <StatusBadge status={data?.status || "pending"} />,
       className: "text-center",
     },
     {

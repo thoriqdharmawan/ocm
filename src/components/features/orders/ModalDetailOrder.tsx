@@ -2,6 +2,7 @@ import Modal from "../../ui/Modal";
 import Field from "../../ui/Field";
 import { OrdersType } from "../../../models/orders";
 import { formatDate } from "../../../utils/global";
+import StatusBadge from "../../ui/StatusBadge";
 
 interface ModalDetailCustomerProps {
   open: boolean;
@@ -27,7 +28,15 @@ const ModalDetailOrder = (props: ModalDetailCustomerProps) => {
               label="Shipping Address"
               value={data?.shippingAddress || ""}
             />
-            <Field label="Status" value={data?.status || ""} />
+            <Field
+              label="Status"
+              value={
+                <StatusBadge
+                  status={data?.status || "pending"}
+                  className="mt-2"
+                />
+              }
+            />
           </div>
           <div className="col">
             <Field
