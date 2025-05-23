@@ -47,9 +47,7 @@ const ModalDraftCustomer = (props: ModalDraftCustomerProps) => {
             }
           />
         </div>
-        <div className="col">
-
-        </div>
+        <div className="col"></div>
       </div>
     </Modal>
   );
