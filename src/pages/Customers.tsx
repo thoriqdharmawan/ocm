@@ -3,29 +3,21 @@ import ThreeDotsIcon from "../components/icons/ThreeDotsIcon";
 import { customersData } from "../datas/customers";
 import { CustomersType } from "../models/customers";
 import Table, { Column } from "../components/ui/Table";
-import Modal from "../components/ui/Modal";
 import Dropdown from "../components/ui/Dropdown";
+import ModalDetailCustomer from "../components/features/customers/ModalDetailCustomer";
 
-const DEFAULT_MODAL = {
+interface ModalState {
+  open: boolean;
+  data: CustomersType | null;
+}
+
+const DEFAULT_MODAL: ModalState = {
   open: false,
   data: null,
 };
 
 const Customers = () => {
-  const [modal, setModal] = useState(DEFAULT_MODAL);
-
-  const dropdownItems = [
-    {
-      label: (
-        <div onClick={() => setModal((prev) => ({ ...prev, open: true }))}>
-          Detail
-        </div>
-      ),
-      action: () => {},
-    },
-    { label: "Edit", action: () => {} },
-    { label: "Hapus", action: () => {} },
-  ];
+  const [modal, setModal] = useState<ModalState>(DEFAULT_MODAL);
 
   const colums: Column<CustomersType>[] = [
     {
@@ -52,7 +44,19 @@ const Customers = () => {
     {
       id: "action",
       label: "Aksi",
-      cell: () => <Dropdown items={dropdownItems} label={<ThreeDotsIcon />} />,
+      cell: ({ data }) => (
+        <Dropdown
+          items={[
+            {
+              label: "Detail",
+              action: () => setModal((prev) => ({ ...prev, open: true, data })),
+            },
+            { label: "Edit", action: () => {} },
+            { label: "Hapus", action: () => {} },
+          ]}
+          label={<ThreeDotsIcon />}
+        />
+      ),
       className: "text-center",
     },
   ];
@@ -63,10 +67,10 @@ const Customers = () => {
 
       <Table columns={colums} data={customersData} />
 
-      <Modal
+      <ModalDetailCustomer
         open={modal.open}
-        title="Detail Customer"
         onClose={() => setModal((prev) => ({ ...prev, open: false }))}
+        data={modal.data}
       />
     </div>
   );

@@ -11,3 +11,7 @@
 .no-caret::after {
   display: none !important;
 }
+
+.fs-7 {
+  font-size: 0.875rem;
+}

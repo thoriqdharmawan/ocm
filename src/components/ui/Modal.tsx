@@ -4,10 +4,11 @@ interface ModalProps {
   open: boolean;
   onClose: () => void;
   title: string;
+  children?: ReactNode;
 }
 
 const Modal = (props: ModalProps) => {
-  const { open, onClose, title } = props;
+  const { open, onClose, title, children } = props;
 
   const handleClose = () => {
     onClose();
@@ -26,7 +27,7 @@ const Modal = (props: ModalProps) => {
             <button type="button" className="btn-close" onClick={handleClose} />
           </div>
           <div className="modal-body">
-            <p>Ini isi dari modal.</p>
+            {children}
           </div>
         </div>
       </div>
