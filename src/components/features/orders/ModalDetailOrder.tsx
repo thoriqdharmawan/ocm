@@ -3,6 +3,7 @@ import Field from "../../ui/Field";
 import { OrdersType } from "../../../models/orders";
 import { formatDate } from "../../../utils/global";
 import StatusBadge from "../../ui/StatusBadge";
+import Barcode from "react-barcode";
 
 interface ModalDetailCustomerProps {
   open: boolean;
@@ -44,9 +45,18 @@ const ModalDetailOrder = (props: ModalDetailCustomerProps) => {
               value={`Rp ${data?.totalAmount.toLocaleString()}` || ""}
             />
             <Field label="Payment Method" value={data?.paymentMethod || ""} />
-
-            <Field label="Tracking Number" value={data?.trackingNumber || ""} />
             <Field label="Courier" value={data?.courier || ""} />
+            <Field label="Tracking Number" value={data?.trackingNumber || ""} />
+            <Field
+              label="Tracking Number Code"
+              value={
+                <Barcode
+                  value={data?.trackingNumber || ""}
+                  height={24}
+                  displayValue={false}
+                />
+              }
+            />
           </div>
         </div>
       </div>
