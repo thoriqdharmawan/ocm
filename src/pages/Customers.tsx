@@ -12,6 +12,10 @@ import useGetListCustomer from "../api/customers/useGetListCustomer";
 import EmptyState from "../components/ui/EmptyState";
 import ModalDeleteCustomer from "../components/features/customers/ModalDeleteCustomer";
 import useDeleteCustomer from "../api/customers/useDeleteCustomer";
+import CustomerCard from "../components/features/customers/CustomerCard";
+import TableIcon from "../components/icons/TableIcon";
+import GridIcon from "../components/icons/GridIcon";
+import { cn } from "../utils/classname";
 
 interface ModalState {
   openDetail: boolean;
@@ -29,14 +33,17 @@ const DEFAULT_MODAL: ModalState = {
   type: "add",
 };
 
-const LIMIT = 10;
+const LIMIT = 9;
 
 const Customers = () => {
   const [modal, setModal] = useState<ModalState>(DEFAULT_MODAL);
 
-  const [dumy, setDumy] = useState<CustomersType[]>(customersData.slice(0, 10));
+  const [dumy, setDumy] = useState<CustomersType[]>(
+    customersData.slice(0, LIMIT)
+  );
 
   const [page, setPage] = useState(1);
+  const [showType, setShowType] = useState<"table" | "grid">("grid");
 
   const [search, setSearch] = useState("");
 
@@ -59,8 +66,19 @@ const Customers = () => {
     },
   });
 
-  const handleDeleteCustomer = (id: number) => {
-    setDumy((prev) => prev.filter((c) => c.id !== id));
+  const handleOpenDetail = (data: CustomersType) => {
+    setModal((prev) => ({ ...prev, openDetail: true, data, type: "detail" }));
+  };
+
+  const handleOpenDraft = (
+    data: CustomersType | null,
+    type: "edit" | "add"
+  ) => {
+    setModal((prev) => ({ ...prev, openDraft: true, data, type }));
+  };
+
+  const handleOpenDelete = (data: CustomersType) => {
+    setModal((prev) => ({ ...prev, openDelete: true, data }));
   };
 
   const colums: Column<CustomersType>[] = [
@@ -93,32 +111,15 @@ const Customers = () => {
           items={[
             {
               label: "Detail",
-              action: () =>
-                setModal((prev) => ({
-                  ...prev,
-                  openDetail: true,
-                  data,
-                  type: "detail",
-                })),
+              action: () => handleOpenDetail(data),
             },
             {
               label: "Edit",
-              action: () =>
-                setModal((prev) => ({
-                  ...prev,
-                  openDraft: true,
-                  data,
-                  type: "edit",
-                })),
+              action: () => handleOpenDraft(data, "edit"),
             },
             {
               label: "Delete",
-              action: () =>
-                setModal((prev) => ({
-                  ...prev,
-                  openDelete: true,
-                  data,
-                })),
+              action: () => handleOpenDelete(data),
             },
           ]}
           label={<ThreeDotsIcon />}
@@ -155,13 +156,36 @@ const Customers = () => {
           onChange={(e) => handleSearch(e.target.value)}
         />
         <button
-          onClick={() =>
-            setModal((prev) => ({ ...prev, openDraft: true, type: "add" }))
-          }
+          onClick={() => handleOpenDraft(null, "add")}
           type="button"
           className="btn btn-primary"
         >
           Add Customer
+        </button>
+      </div>
+
+      <div className="d-flex justify-content-end mb-3 gap-1">
+        <button
+          onClick={() => setShowType("table")}
+          className={cn(
+            "btn btn-outline-primary me-2 d-flex align-items-center p-2",
+            {
+              "btn-primary": showType === "table",
+            }
+          )}
+        >
+          <TableIcon className={cn(showType === "table" ? "text-white" : "")} />
+        </button>
+        <button
+          onClick={() => setShowType("grid")}
+          className={cn(
+            "btn btn-outline-primary me-2 d-flex align-items-center p-2",
+            {
+              "btn-primary": showType === "grid",
+            }
+          )}
+        >
+          <GridIcon className={cn(showType === "grid" ? "text-white" : "")} />
         </button>
       </div>
 
@@ -172,8 +196,21 @@ const Customers = () => {
             search ? `No customers match the keyword "${search}".` : undefined
           }
         />
-      ) : (
+      ) : showType === "table" ? (
         <Table columns={colums} data={dumy} />
+      ) : (
+        <div className="row">
+          {dumy.map((customer) => (
+            <div key={customer.id} className="col-12 col-md-6 col-lg-4 mb-3">
+              <CustomerCard
+                data={customer}
+                onClickDetail={() => handleOpenDetail(customer)}
+                onClickDelete={() => handleOpenDelete(customer)}
+                onClickEdit={() => handleOpenDraft(customer, "edit")}
+              />
+            </div>
+          ))}
+        </div>
       )}
 
       <Pagination
@@ -190,7 +227,6 @@ const Customers = () => {
             setDumy(customersData.slice((page - 1) * LIMIT, page * LIMIT));
           }
         }}
-        className="my-4"
       />
 
       <ModalDetailCustomer
