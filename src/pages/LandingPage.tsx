@@ -48,18 +48,18 @@ const Home = () => {
           <div className="row">
             <div className="col-12 col-lg-6 text-start py-6">
               <div>
-                <h1 className="fs-header fw-bold mb-4">
+                <h1 className="fs-header fw-bold mb-4 slide-up-anim-title delay-1">
                   <span className="bg-primary-subtle text-primary">
                     Simplify Your
                   </span>{" "}
                   Customer and Order Management
                 </h1>
-                <p className="fs-subheader fw-light">
+                <p className="fs-subheader fw-light slide-up-anim-title delay-6">
                   All-in-one platform to track customers, manage orders, and
                   grow your business — faster and smarter.
                 </p>
 
-                <a href="/login">
+                <a href="/login" className="slide-up-anim-title delay-12">
                   <button className="btn btn-primary btn-lg px-5 mt-4">
                     Login
                   </button>
@@ -69,14 +69,12 @@ const Home = () => {
             <div className="col-12 col-lg-6 position-relative py-3 h-100">
               <img
                 src="/demo/tablet.png"
-                className="landing-tablet img-fluid slide-up-anim"
-                style={{ animationDelay: "0.1s" }}
+                className="landing-tablet img-fluid slide-up-anim delay-1"
               />
 
               <img
                 src="/demo/mobile.png"
-                className="landing-mobile img-fluid slide-up-anim"
-                style={{ animationDelay: "0.6s" }}
+                className="landing-mobile img-fluid slide-up-anim delay-6"
               />
             </div>
           </div>
