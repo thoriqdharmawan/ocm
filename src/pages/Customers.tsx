@@ -146,10 +146,11 @@ const Customers = () => {
     <div className="container">
       <h2 className="my-4">Customers</h2>
 
-      <div className="d-flex justify-content-between align-items-center mb-4">
+      <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
         <Input
           placeholder="Search Customers"
           wrapperClassName="w-50"
+          style={{ minWidth: 200 }}
           value={search}
           onChange={(e) => handleSearch(e.target.value)}
         />
