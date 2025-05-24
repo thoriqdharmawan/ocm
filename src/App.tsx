@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/ui/Sidebar";
 import Topbar from "./components/ui/Topbar";
-import Home from "./pages/Home";
 import Customers from "./pages/Customers";
 import Orders from "./pages/Orders";
 import Login from "./pages/Login";
+import Home from "./pages/Home";
 import { QueryProvider } from "./providers/QueryProvider";
 import OnlyGuest from "./providers/OnlyGuest";
 import RequireAuth from "./providers/RequireAuth";
@@ -22,6 +22,7 @@ function App() {
               </OnlyGuest>
             }
           />
+          <Route path="/" element={<Home />} />
           <Route
             path="/*"
             element={
@@ -34,7 +35,6 @@ function App() {
                     </div>
                     <main className="p-3 w-100">
                       <Routes>
-                        <Route path="/" element={<Home />} />
                         <Route path="/customers" element={<Customers />} />
                         <Route path="/orders" element={<Orders />} />
                       </Routes>

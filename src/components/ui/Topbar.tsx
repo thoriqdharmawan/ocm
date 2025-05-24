@@ -3,7 +3,7 @@ import Sidebar from "./Sidebar";
 const Topbar = () => {
   return (
     <>
-      <div className="navbar navbar-dark bg-dark d-md-none">
+      <div className="navbar custom-shadow d-md-none">
         <div className="container-fluid">
           <button
             className="navbar-toggler"
@@ -21,7 +21,7 @@ const Topbar = () => {
         className="offcanvas offcanvas-start d-md-none"
         id="sidebarOffcanvas"
       >
-        <div className="offcanvas-header bg-dark" data-bs-theme="dark">
+        <div className="offcanvas-header">
           <button
             type="button"
             className="btn-close"
@@ -29,9 +29,7 @@ const Topbar = () => {
             aria-label="Close"
           />
         </div>
-        <div className="offcanvas-body bg-dark">
-          <Sidebar />
-        </div>
+        <Sidebar withShadow={false} />
       </div>
     </>
   );

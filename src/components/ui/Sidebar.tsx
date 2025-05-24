@@ -2,8 +2,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "../../utils/classname";
 import Image from "./Image";
 import { removeCredentials } from "../../utils/global";
+import { ReactNode } from "react";
 
-const Sidebar = () => {
+interface SidebarProps {
+  withShadow?: boolean;
+  closeElement?: ReactNode;
+}
+
+const Sidebar = ({ withShadow = true, closeElement }: SidebarProps) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -20,11 +26,20 @@ const Sidebar = () => {
 
   return (
     <nav
-      className="bg-white p-3 vh-100 custom-shadow d-flex flex-column justify-content-between"
+      className={cn(
+        "bg-white p-3 vh-100 d-flex flex-column justify-content-between",
+        {
+          "custom-shadow": withShadow,
+        }
+      )}
       style={{ minWidth: "250px" }}
     >
       <div>
-        <h4 className="mb-4">Dashboard</h4>
+        <div className="d-flex align-items-center justify-content-between gap-3 mb-4">
+          <h4 className="mb-4">Dashboard</h4>
+
+          {closeElement}
+        </div>
         <ul className="nav flex-column">
           {navItems.map((item) => {
             const isActive = location.pathname === item.to;
