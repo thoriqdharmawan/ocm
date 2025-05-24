@@ -4,7 +4,7 @@ const Home = () => {
       <nav className="container navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <a className="navbar-brand" href="#">
-            Navbar
+            OCM
           </a>
           <button
             className="navbar-toggler"
@@ -20,17 +20,26 @@ const Home = () => {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
+                <a className="nav-link" aria-current="page" href="#">
                   Home
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Features
+                <a className="nav-link" aria-current="page" href="#">
+                  About Us
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" aria-current="page" href="#">
+                  Contact Us
                 </a>
               </li>
             </ul>
           </div>
+
+          <a href="/login">
+            <button className="btn btn-primary px-5">Login</button>
+          </a>
         </div>
       </nav>
 
@@ -49,6 +58,12 @@ const Home = () => {
                   All-in-one platform to track customers, manage orders, and
                   grow your business — faster and smarter.
                 </p>
+
+                <a href="/login">
+                  <button className="btn btn-primary btn-lg px-5 mt-4">
+                    Login
+                  </button>
+                </a>
               </div>
             </div>
             <div className="col">Column</div>
