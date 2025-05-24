@@ -55,37 +55,44 @@ const Login = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center min-vh-100 bg-light">
-      <form
-        className="bg-white p-4 rounded shadow"
-        style={{ minWidth: 320 }}
-        onSubmit={handleSubmit}
-      >
-        <h3 className="mb-4 text-center">Login</h3>
-        <Input
-          name="username"
-          placeholder="Username"
-          value={form.username}
-          onChange={handleChange}
-          className="mb-3"
-        />
-        <Input
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={handleChange}
-          className="mb-3"
-        />
-        {error && <div className="text-danger mb-3">{error}</div>}
-        <button
-          className="btn btn-primary w-100"
-          type="submit"
-          disabled={isPending}
-        >
-          {isPending ? "Logging in..." : "Login"}
-        </button>
-      </form>
+    <div className="vh-100 w-100 bg-light">
+      <div className="row h-100">
+        <div className="col-12 col-md-6 col-lg-8 p-0">
+          <img src="https://fastly.picsum.photos/id/42/3456/2304.jpg?hmac=dhQvd1Qp19zg26MEwYMnfz34eLnGv8meGk_lFNAJR3g" className="img-fluid h-100 w-100 object-fit-cover" alt="..."></img>
+        </div>
+        <div className="col-12 col-md-6 col-lg-4 p-0 d-flex justify-content-center align-items-center custom-shadow bg-white">
+          <form
+            className="bg-white p-4 rounded"
+            style={{ minWidth: 320 }}
+            onSubmit={handleSubmit}
+          >
+            <h3 className="mb-4 text-center">Login</h3>
+            <Input
+              name="username"
+              placeholder="Username"
+              value={form.username}
+              onChange={handleChange}
+              className="mb-3"
+            />
+            <Input
+              name="password"
+              type="password"
+              placeholder="Password"
+              value={form.password}
+              onChange={handleChange}
+              className="mb-3"
+            />
+            {error && <div className="text-danger mb-3">{error}</div>}
+            <button
+              className="btn btn-primary w-100"
+              type="submit"
+              disabled={isPending}
+            >
+              {isPending ? "Logging in..." : "Login"}
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };
