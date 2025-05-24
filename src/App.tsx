@@ -29,8 +29,8 @@ function App() {
               <RequireAuth>
                 <div className="d-flex flex-column min-vh-100 w-100">
                   <Topbar />
-                  <div className="d-flex">
-                    <div className="d-none d-md-block">
+                  <div className="d-flex flex-column flex-lg-row">
+                    <div className="d-none d-lg-block">
                       <Sidebar />
                     </div>
                     <main className="p-3 w-100">

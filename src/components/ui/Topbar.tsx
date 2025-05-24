@@ -3,7 +3,7 @@ import Sidebar from "./Sidebar";
 const Topbar = () => {
   return (
     <>
-      <div className="navbar custom-shadow d-md-none">
+      <div className="navbar custom-shadow d-lg-none">
         <div className="container-fluid">
           <button
             className="navbar-toggler"
@@ -18,7 +18,7 @@ const Topbar = () => {
       </div>
 
       <div
-        className="offcanvas offcanvas-start d-md-none"
+        className="offcanvas offcanvas-start d-lg-none"
         id="sidebarOffcanvas"
       >
         <div className="offcanvas-header">
