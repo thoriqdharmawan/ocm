@@ -46,8 +46,8 @@ const Home = () => {
       <main className="p-3 w-100">
         <div className="container text-center">
           <div className="row">
-            <div className="col text-start">
-              <div className="py-6">
+            <div className="col-12 col-lg-6 text-start py-6">
+              <div>
                 <h1 className="fs-header fw-bold mb-4">
                   <span className="bg-primary-subtle text-primary">
                     Simplify Your
@@ -66,7 +66,19 @@ const Home = () => {
                 </a>
               </div>
             </div>
-            <div className="col">Column</div>
+            <div className="col-12 col-lg-6 position-relative py-3 h-100">
+              <img
+                src="/demo/tablet.png"
+                className="landing-tablet img-fluid slide-up-anim"
+                style={{ animationDelay: "0.1s" }}
+              />
+
+              <img
+                src="/demo/mobile.png"
+                className="landing-mobile img-fluid slide-up-anim"
+                style={{ animationDelay: "0.6s" }}
+              />
+            </div>
           </div>
         </div>
       </main>

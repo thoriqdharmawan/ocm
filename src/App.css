@@ -41,7 +41,6 @@ input.form-control:invalid {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
-
 .fs-header {
   font-size: 3.5rem;
   font-weight: 600;
@@ -55,4 +54,44 @@ input.form-control:invalid {
 .py-6 {
   padding-top: 6rem;
   padding-bottom: 6rem;
+}
+
+.slide-up-anim {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: slideUp 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.landing-mobile {
+  width: 30%;
+  max-width: 220px;
+  right: 0;
+  bottom: 0px;
+  position: absolute;
+}
+
+.landing-tablet {
+  position: static;
+}
+
+@media (min-width: 992px) {
+  .landing-mobile {
+    width: 30%;
+    max-width: 220px;
+    right: 0;
+    bottom: -20px;
+    position: absolute;
+  }
+  .landing-tablet {
+    width: 100%;
+    max-width: 600px;
+    left: 40px;
+  }
 }
