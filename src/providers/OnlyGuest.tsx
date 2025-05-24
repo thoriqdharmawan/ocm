@@ -8,7 +8,7 @@ export default function OnlyGuest({ children }) {
 
   useEffect(() => {
     if (token) {
-      navigate("/", { replace: true });
+      navigate("/customers", { replace: true });
     }
   }, [token, navigate]);
 

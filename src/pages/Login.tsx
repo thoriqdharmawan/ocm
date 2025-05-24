@@ -33,13 +33,13 @@ const Login = () => {
     onSuccess: (data) => {
       setUserToken("fake-token");
       setUser(DUMY_USER);
-      navigate("/");
+      navigate("/customers");
     },
     onError: (err) => {
       // setError("Invalid username or password");
       setUserToken("fake-token");
       setUser(DUMY_USER);
-      navigate("/");
+      navigate("/customers");
     },
   });
 
