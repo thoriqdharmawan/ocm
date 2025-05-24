@@ -32,7 +32,7 @@ const Sidebar = ({ withShadow = true, closeElement }: SidebarProps) => {
           "custom-shadow": withShadow,
         }
       )}
-      style={{ minWidth: "250px" }}
+      style={{ minWidth: "250px", position: "sticky", top: 0 }}
     >
       <div>
         <div className="d-flex align-items-center justify-content-between gap-3 mb-4">
