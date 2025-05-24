@@ -1,4 +1,8 @@
+import { getUserToken } from "../utils/global";
+
 const Home = () => {
+  const hasLoginData = !!getUserToken();
+
   return (
     <div className="d-flex flex-column min-vh-100 w-100">
       <nav className="container navbar navbar-expand-lg bg-body-tertiary">
@@ -38,7 +42,9 @@ const Home = () => {
           </div>
 
           <a href="/login">
-            <button className="btn btn-primary px-5">Login</button>
+            <button className="btn btn-primary px-5">
+              {hasLoginData ? "Go to App" : "Login"}
+            </button>
           </a>
         </div>
       </nav>
@@ -61,7 +67,7 @@ const Home = () => {
 
                 <a href="/login" className="slide-up-anim-title delay-12">
                   <button className="btn btn-primary btn-lg px-5 mt-4">
-                    Login
+                    {hasLoginData ? "Go to App" : "Login"}
                   </button>
                 </a>
               </div>
