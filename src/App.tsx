@@ -4,7 +4,7 @@ import Topbar from "./components/ui/Topbar";
 import Customers from "./pages/Customers";
 import Orders from "./pages/Orders";
 import Login from "./pages/Login";
-import Home from "./pages/Home";
+import Home from "./pages/LandingPage";
 import { QueryProvider } from "./providers/QueryProvider";
 import OnlyGuest from "./providers/OnlyGuest";
 import RequireAuth from "./providers/RequireAuth";
