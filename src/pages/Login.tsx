@@ -118,7 +118,7 @@ const Login = () => {
             </button>
           </div>
         </div>
-        <div className="col-12 col-md-6 col-lg-4 p-0 d-flex justify-content-center align-items-center custom-shadow bg-white">
+        <div className="d-flex flex-column col-12 col-md-6 col-lg-4 p-0 d-flex justify-content-center align-items-center custom-shadow bg-white">
           <form
             className="bg-white p-4 rounded"
             style={{ minWidth: 320 }}
@@ -151,6 +151,10 @@ const Login = () => {
               {isPending ? "Logging in..." : "Login"}
             </button>
           </form>
+
+          <p className="fw-light fst-italic fs-7 text-secondary text-center">
+            NOTE: use any value to login
+          </p>
         </div>
       </div>
     </div>

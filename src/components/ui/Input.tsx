@@ -26,7 +26,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <input
           ref={ref}
           className={cn(
-            "form-control",
+            "form-control fw-light",
             error && "is-invalid",
             "focus-none",
             className
