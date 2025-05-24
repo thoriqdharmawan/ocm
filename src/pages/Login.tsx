@@ -22,7 +22,11 @@ const DUMY_USER: UserType = {
 
 const Login = () => {
   const [form, setForm] = useState({ username: "", password: "" });
-  const [error, setError] = useState("");
+  const [error, setError] = useState<{
+    username?: string;
+    password?: string;
+    form?: string;
+  }>({});
   const navigate = useNavigate();
 
   const { mutate, isPending } = useLogin({
@@ -45,7 +49,15 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError("");
+    const newError: { username?: string; password?: string; form?: string } =
+      {};
+    if (!form.username) newError.username = "Username tidak boleh kosong.";
+    if (!form.password) newError.password = "Password tidak boleh kosong.";
+    if (newError.username || newError.password) {
+      setError(newError);
+      return;
+    }
+    setError({});
     mutate({
       body: {
         username: form.username,
@@ -58,7 +70,53 @@ const Login = () => {
     <div className="vh-100 w-100 bg-light">
       <div className="row h-100">
         <div className="col-12 col-md-6 col-lg-8 p-0">
-          <img src="https://fastly.picsum.photos/id/42/3456/2304.jpg?hmac=dhQvd1Qp19zg26MEwYMnfz34eLnGv8meGk_lFNAJR3g" className="img-fluid h-100 w-100 object-fit-cover" alt="..."></img>
+          <div
+            id="carouselExample"
+            className="carousel slide h-100"
+            data-bs-ride="carousel"
+          >
+            <div className="carousel-inner h-100">
+              <div className="carousel-item h-100 active">
+                <img
+                  src="https://fastly.picsum.photos/id/48/5000/3333.jpg?hmac=y3_1VDNbhii0vM_FN6wxMlvK27vFefflbUSH06z98so"
+                  className="img-fluid h-100 w-100 object-fit-cover"
+                  alt=""
+                />
+              </div>
+              <div className="carousel-item h-100">
+                <img
+                  src="https://fastly.picsum.photos/id/42/3456/2304.jpg?hmac=dhQvd1Qp19zg26MEwYMnfz34eLnGv8meGk_lFNAJR3g"
+                  className="img-fluid h-100 w-100 object-fit-cover"
+                  alt=""
+                />
+              </div>
+              <div className="carousel-item h-100">
+                <img
+                  src="https://fastly.picsum.photos/id/60/1920/1200.jpg?hmac=fAMNjl4E_sG_WNUjdU39Kald5QAHQMh-_-TsIbbeDNI"
+                  className="img-fluid h-100 w-100 object-fit-cover"
+                  alt=""
+                />
+              </div>
+            </div>
+            <button
+              className="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExample"
+              data-bs-slide="prev"
+            >
+              <span className="carousel-control-prev-icon" aria-hidden="true" />
+              <span className="visually-hidden">Previous</span>
+            </button>
+            <button
+              className="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExample"
+              data-bs-slide="next"
+            >
+              <span className="carousel-control-next-icon" aria-hidden="true" />
+              <span className="visually-hidden">Next</span>
+            </button>
+          </div>
         </div>
         <div className="col-12 col-md-6 col-lg-4 p-0 d-flex justify-content-center align-items-center custom-shadow bg-white">
           <form
@@ -72,7 +130,8 @@ const Login = () => {
               placeholder="Username"
               value={form.username}
               onChange={handleChange}
-              className="mb-3"
+              wrapperClassName="mb-3"
+              error={error.username}
             />
             <Input
               name="password"
@@ -80,9 +139,10 @@ const Login = () => {
               placeholder="Password"
               value={form.password}
               onChange={handleChange}
-              className="mb-3"
+              wrapperClassName="mb-3"
+              error={error.password}
             />
-            {error && <div className="text-danger mb-3">{error}</div>}
+            {error.form && <div className="text-danger mb-3">{error.form}</div>}
             <button
               className="btn btn-primary w-100"
               type="submit"
