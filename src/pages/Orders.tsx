@@ -13,8 +13,12 @@ import ModalDeleteOrder from "../components/features/orders/ModalDeleteOrder";
 import ModalDetailOrder from "../components/features/orders/ModalDetailOrder";
 import ModalDraftOrder from "../components/features/orders/ModalDraftOrder";
 import StatusBadge from "../components/ui/StatusBadge";
+import OrderCard from "../components/features/orders/OrderCard";
+import TableIcon from "../components/icons/TableIcon";
+import { cn } from "../utils/classname";
+import GridIcon from "../components/icons/GridIcon";
 
-const LIMIT = 10;
+const LIMIT = 9;
 
 interface ModalState {
   openDetail: boolean;
@@ -38,7 +42,7 @@ const Orders = () => {
   );
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
-
+  const [showType, setShowType] = useState<"table" | "grid">("grid");
   const [modal, setModal] = useState<ModalState>(DEFAULT_MODAL);
 
   // fake get list orders
@@ -99,34 +103,21 @@ const Orders = () => {
       label: "Action",
       cell: ({ data }) => (
         <Dropdown
+          label="..."
           items={[
             {
               label: "Detail",
-              action: () =>
-                setModal((prev) => ({
-                  ...prev,
-                  openDetail: true,
-                  type: "detail",
-                  data,
-                })),
+              action: () => handleOpenDetail(data),
             },
             {
               label: "Edit",
-              action: () =>
-                setModal((prev) => ({
-                  ...prev,
-                  openDraft: true,
-                  type: "edit",
-                  data,
-                })),
+              action: () => handleOpenDraft(data, "edit"),
             },
             {
               label: "Delete",
-              action: () =>
-                setModal((prev) => ({ ...prev, openDelete: true, data })),
+              action: () => handleOpenDelete(data),
             },
           ]}
-          label={"..."}
         />
       ),
       className: "text-center",
@@ -145,6 +136,18 @@ const Orders = () => {
     setPage(1);
   };
 
+  const handleOpenDetail = (data: OrdersType) => {
+    setModal((prev) => ({ ...prev, openDetail: true, data, type: "detail" }));
+  };
+
+  const handleOpenDraft = (data: OrdersType | null, type: "edit" | "add") => {
+    setModal((prev) => ({ ...prev, openDraft: true, data, type }));
+  };
+
+  const handleOpenDelete = (data: OrdersType) => {
+    setModal((prev) => ({ ...prev, openDelete: true, data }));
+  };
+
   return (
     <div className="container">
       <h2 className="my-4">Orders</h2>
@@ -157,15 +160,39 @@ const Orders = () => {
           onChange={(e) => handleSearch(e.target.value)}
         />
         <button
-          onClick={() =>
-            setModal((prev) => ({ ...prev, openDraft: true, type: "add" }))
-          }
+          onClick={() => handleOpenDraft(null, "add")}
           type="button"
           className="btn btn-primary"
         >
           Add Order
         </button>
       </div>
+
+      <div className="d-flex justify-content-end mb-3 gap-1">
+        <button
+          onClick={() => setShowType("table")}
+          className={cn(
+            "btn btn-outline-primary me-2 d-flex align-items-center p-2",
+            {
+              "btn-primary": showType === "table",
+            }
+          )}
+        >
+          <TableIcon className={cn(showType === "table" ? "text-white" : "")} />
+        </button>
+        <button
+          onClick={() => setShowType("grid")}
+          className={cn(
+            "btn btn-outline-primary me-2 d-flex align-items-center p-2",
+            {
+              "btn-primary": showType === "grid",
+            }
+          )}
+        >
+          <GridIcon className={cn(showType === "grid" ? "text-white" : "")} />
+        </button>
+      </div>
+
       {orders.length === 0 ? (
         <EmptyState
           title={search ? "Order not found" : undefined}
@@ -173,8 +200,21 @@ const Orders = () => {
             search ? `No orders match the keyword "${search}".` : undefined
           }
         />
-      ) : (
+      ) : showType === "table" ? (
         <Table columns={columns} data={orders} />
+      ) : (
+        <div className="row">
+          {orders.map((customer) => (
+            <div key={customer.id} className="col-12 col-md-6 col-lg-4 mb-3">
+              <OrderCard
+                data={customer}
+                onClickDetail={() => handleOpenDetail(customer)}
+                onClickDelete={() => handleOpenDelete(customer)}
+                onClickEdit={() => handleOpenDraft(customer, "edit")}
+              />
+            </div>
+          ))}
+        </div>
       )}
 
       <Pagination
