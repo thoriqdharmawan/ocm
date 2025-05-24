@@ -1,12 +1,63 @@
-# React + Vite
+# 🚀 OCM (Order and Customer Management) 🎉
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to OCM! An all-in-one platform to manage your customers and orders efficiently, easily, and quickly. Perfect for modern businesses aiming to grow better! 🛒👩‍💻
 
-Currently, two official plugins are available:
+## 🖼️ Preview Screenshots
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Take a look at OCM in action! 👇
 
-## Expanding the ESLint configuration
+<p align="center">
+  <img src="./public/demo/dekstop.png" alt="Desktop Preview" width="600" />
+</p>
+<p align="center">
+  <img src="./public/demo/tablet.png" alt="Tablet Preview" width="400" />
+  <img src="./public/demo/mobile.png" alt="Mobile Preview" width="200" />
+</p>
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ✨ Main Features
+
+- Manage customers & orders in a single dashboard
+- Interactive grid & table views
+- Powerful search & data filtering
+- Full CRUD for customers & orders
+- Export & download data
+- Modern and responsive UI
+
+## 📦 Installation
+
+1. Clone this repo:
+   ```bash
+   git clone https://github.com/thoriqdharmawan/ocm
+   cd customer-and-order-management
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Run the app:
+   ```bash
+   npm run dev
+   ```
+
+## 🐳 Run with Docker
+
+1. Build the image:
+   ```bash
+   docker build -t ocm-app .
+   ```
+2. Run the container:
+   ```bash
+   docker run -p 8080:80 ocm-app
+   ```
+
+Access the app at [http://localhost:8080](http://localhost:8080) 🌐
+
+## 🛠️ Tech Stack
+
+- React 19 ⚛️
+- Vite ⚡
+- TypeScript 💙
+- Bootstrap 5 🎨
+- React Query 🔄
+- Axios 🌐
+
